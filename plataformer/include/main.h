@@ -10,4 +10,4 @@ void UpdateStartup();
 
 void QuitApp();
 
-void gotomenu(); 
+void gotomenu();

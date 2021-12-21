@@ -78,7 +78,7 @@ void UpdateMenu() {
 }
 
 void UpdatePaused() {
-    
+
 }
 
 void main() {
@@ -87,7 +87,7 @@ void main() {
 
 	InitWindow(windowWith, windowHeight, "Plataformer");
     GuiLoadStyle("/styles/ashes/ashes.rgs");
-
+    
     ApplicationStates ApplicationState = ApplicationStates::Startup;
 
     SetTargetFPS(144);

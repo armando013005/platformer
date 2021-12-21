@@ -13,7 +13,7 @@
 *       - WindowBox
 *       - GroupBox
 *       - Line
-*       - Panel 
+*       - Panel
 *
 *   # Basic Controls
 *       - Label
