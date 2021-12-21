@@ -8,6 +8,7 @@ public:
 protected:
 	void DrawCenteredText(int y, const char* text, int fontSize, Color color);
 	bool DrawCenteredButton(float y, float width, float height, const char* text);
+	void DrawInGameMenu();
 
 };
 

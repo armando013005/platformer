@@ -1,9 +1,13 @@
 #define RAYGUI_IMPLEMENTATION
 #include <raylib.h>
-#include "include/game.h"
-#include "include/screens.h"
 #include "include/raygui.h"
+
+#include "include/game.h"
 #include "include/main.h"
+#include "include/pause.h"
+#include "include/screens.h"
+
+
 int windowWith = 800;
 int windowHeight = 600;
 int framecounter = 0;
@@ -18,17 +22,8 @@ enum class ApplicationStates
     Quiting
 } ApplicationState;
 
-void CloseAll() {
-    
-    CloseAudioDevice();
-    CloseWindow();
-}
-
 void QuitApp() {
     ApplicationState = ApplicationStates::Quiting;
-    EndDrawing();
-    UnloadAll();
-    CloseAll();
 }
 
 class StarupScreen : public Screen
@@ -87,15 +82,11 @@ void StartGame() {
 }
 
 void UpdateMenu() {
-    //ApplicationState = ApplicationStates::Menu;
-    //SetActiveScreen(&mainMenu);
-    if (IsKeyDown(KEY_ESCAPE)) {
-        QuitApp();
-    }
+    SetActiveScreen(&mainMenu);
 }
 
-void UpdatePaused() {
-
+void PauseGame() {
+    ApplicationState = ApplicationStates::Paused;
 }
 
 int main() {
@@ -107,7 +98,7 @@ int main() {
 
     GuiLoadStyle("styles/ashes/ashes.rgs");
 
-    ApplicationStates ApplicationState = ApplicationStates::Startup;
+    ApplicationState = ApplicationStates::Startup;
 
     SetTargetFPS(144);
    
@@ -133,7 +124,7 @@ int main() {
             break;
 
         case ApplicationStates::Paused:
-            UpdatePaused();
+            UpdatePause();
             break;
         case ApplicationStates::Startup:
             UpdateStartup();
@@ -156,7 +147,8 @@ int main() {
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseAll();       // Close window and audio devivce  and OpenGL context
+    CloseAudioDevice();
+    CloseWindow();      // Close window and audio devivce  and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;
