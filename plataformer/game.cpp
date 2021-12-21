@@ -11,6 +11,7 @@ struct caracter
 };
 
 
+
 void UpdateGame() {
 
 }

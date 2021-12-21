@@ -19,12 +19,12 @@ void Screen::DrawCenteredText(int y, const char* text, int fontSize, Color color
 	DrawText(text, GetScreenWidth() / 2 - textWidth / 2, y - fontSize / 2, fontSize, color);
 }
 
-bool Screen::DrawCenteredButton(float y, float height, const char* text, int fontSize)
+bool Screen::DrawCenteredButton(float y, float width, float height, const char* text)
 {
-	
-	float buttonWidth = MeasureText(text, fontSize);
-	
-	Rectangle boton = { GetScreenWidth() / 2 - buttonWidth/2, y-fontSize, buttonWidth, height };
+	if (width < MeasureText(text,10)) {
+		width += MeasureText(text, 10);
+	}
+	Rectangle boton = { GetScreenWidth() / 2 - width / 2, y - height / 2, width, height };
 
 	return GuiButton(boton, text);
 

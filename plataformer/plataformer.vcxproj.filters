@@ -7,6 +7,9 @@
     <Filter Include="include">
       <UniqueIdentifier>{84bc72f4-51e8-4cab-af00-81ab782cc4a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="styles">
+      <UniqueIdentifier>{1a8488c5-ed9b-46fe-ab49-169a14e8edde}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -32,5 +35,15 @@
     <ClInclude Include="include\screens.h">
       <Filter>include</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="styles\ashes\ashes.rgs">
+      <Filter>styles</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="styles\ashes\v5loxical.ttf">
+      <Filter>styles</Filter>
+    </Font>
   </ItemGroup>
 </Project>

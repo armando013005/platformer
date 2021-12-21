@@ -3,7 +3,7 @@
 #include "include/game.h"
 #include "include/screens.h"
 #include "include/raygui.h"
-
+#include "include/main.h"
 int windowWith = 800;
 int windowHeight = 600;
 int framecounter = 0;
@@ -17,6 +17,19 @@ enum class ApplicationStates
     Paused,
     Quiting
 } ApplicationState;
+
+void CloseAll() {
+    
+    CloseAudioDevice();
+    CloseWindow();
+}
+
+void QuitApp() {
+    ApplicationState = ApplicationStates::Quiting;
+    EndDrawing();
+    UnloadAll();
+    CloseAll();
+}
 
 class StarupScreen : public Screen
 {
@@ -35,19 +48,20 @@ public:
     void Draw() override {
 
 
-        DrawCenteredText(windowHeight / 4, "GAME NAME", 50, RAYWHITE);
+        DrawCenteredText(windowHeight / 3, "GAME NAME", 50, RAYWHITE);
         Rectangle boton = { 10,10,50,50 };
-        if (DrawCenteredButton(GetScreenHeight()/2, 300, "PLAY", 300)) {
-            DrawCenteredText(windowHeight / 2, "BUTOOOOON", 50, RAYWHITE);
+
+        if (DrawCenteredButton(GetScreenHeight()/2, 100, 30, "PLAY")) {
+            ApplicationState = ApplicationStates::Running;
         }
-        
+
+        if (DrawCenteredButton(GetScreenHeight() - GetScreenHeight() / 2.5, 70, 30, "QUIT")) {
+            QuitApp();
+        }
 
     }
 }mainMenu;
 
-void QuitApp() {
-    ApplicationState = ApplicationStates::Quiting;
-}
 
 void gotomenu() {
     ApplicationState = ApplicationStates::Menu;
@@ -67,7 +81,10 @@ void UpdateLoad() {
 
 }
 
-
+void StartGame() {
+    ApplicationState = ApplicationStates::Running;
+    
+}
 
 void UpdateMenu() {
     //ApplicationState = ApplicationStates::Menu;
@@ -78,24 +95,28 @@ void UpdateMenu() {
 }
 
 void UpdatePaused() {
-    
+
 }
 
-void main() {
+int main() {
 	
     
 
 	InitWindow(windowWith, windowHeight, "Plataformer");
-    GuiLoadStyle("/styles/ashes/ashes.rgs");
+    InitAudioDevice();
+
+    GuiLoadStyle("styles/ashes/ashes.rgs");
 
     ApplicationStates ApplicationState = ApplicationStates::Startup;
 
     SetTargetFPS(144);
    
+    SetExitKey(NULL);
 
     while (!WindowShouldClose() && ApplicationState != ApplicationStates::Quiting)    // Detect window close button or ESC key
     {
         // Update
+
         //----------------------------------------------------------------------------------
         switch (ApplicationState)
         {
@@ -135,8 +156,8 @@ void main() {
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    CloseAll();       // Close window and audio devivce  and OpenGL context
     //--------------------------------------------------------------------------------------
 
-
+    return 0;
 }

@@ -7,7 +7,7 @@ public:
 	virtual void Draw() = 0;
 protected:
 	void DrawCenteredText(int y, const char* text, int fontSize, Color color);
-	bool DrawCenteredButton(float y, float height, const char* text, int fontSize);
+	bool DrawCenteredButton(float y, float width, float height, const char* text);
 
 };
 

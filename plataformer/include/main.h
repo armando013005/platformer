@@ -1,5 +1,4 @@
 #pragma once
-
 void UpdateLoad();
 
 void UpdateMenu();
@@ -10,4 +9,9 @@ void UpdateStartup();
 
 void QuitApp();
 
-void gotomenu(); 
+void gotomenu();
+
+void UnloadAll() {
+
+}
+void CloseAll();

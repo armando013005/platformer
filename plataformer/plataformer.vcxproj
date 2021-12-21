@@ -185,6 +185,12 @@
     <ClInclude Include="include\raygui.h" />
     <ClInclude Include="include\screens.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="styles\ashes\ashes.rgs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="styles\ashes\v5loxical.ttf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
