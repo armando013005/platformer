@@ -10,11 +10,6 @@ public:
         ClearBackground(BLACK);
         DrawRectangle(0, 0, GetScreenWidth()/2, GetScreenHeight()/2, GREEN);
 
-        if(triggerMenu){
-            DrawInGameMenu();
-        }
-        
-
 
     }
 
