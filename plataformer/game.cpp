@@ -10,11 +10,6 @@ public:
         ClearBackground(BLACK);
         DrawRectangle(0, 0, GetScreenWidth()/2, GetScreenHeight()/2, GREEN);
 
-        if(triggerMenu){
-            DrawInGameMenu();
-        }
-        
-
 
     }
 
@@ -32,7 +27,8 @@ struct caracter
 
 void UpdateGame() {
 
+    SetActiveScreen(&gameScene);
+    
     if (IsKeyPressed(KEY_ESCAPE)) PauseGame();
 
-    SetActiveScreen(&gameScene);
 }

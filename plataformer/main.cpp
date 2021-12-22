@@ -89,6 +89,11 @@ void PauseGame() {
     ApplicationState = ApplicationStates::Paused;
 }
 
+void ResumeGame() {
+    ApplicationState = ApplicationStates::Running;
+    SetActiveScreen(nullptr);
+}
+
 int main() {
 	
     
