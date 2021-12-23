@@ -24,6 +24,9 @@
     <ClCompile Include="pause.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
+    <ClCompile Include="loading.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\game.h">
@@ -39,6 +42,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\pause.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\loading.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,9 +8,11 @@
 #include "include/screens.h"
 
 
-int windowWith = 800;
-int windowHeight = 600;
+int windowWith = 1280;
+int windowHeight = 720;
 int framecounter = 0;
+
+Font ashesfont;
 
 enum class ApplicationStates
 {
@@ -31,7 +33,7 @@ class StarupScreen : public Screen
 public:
     void Draw() override {
         Color blanco = { 245, 245, 245, 255-framecounter };
-        DrawCenteredText(windowHeight/2, "MADE WITH RAYLIB", 50, blanco);
+        DrawCenteredTextEx(GetScreenHeight()/2, "MADE WITH RAYLIB", 50, blanco, ashesfont);
 
     }
 }starupScreen;
@@ -42,8 +44,9 @@ class MainMenu : public Screen
 public:
     void Draw() override {
 
-
-        DrawCenteredText(windowHeight / 3, "GAME NAME", 50, RAYWHITE);
+        //ashesfont = LoadFontEx("styles / ashes / v5loxical.ttf", 32, 0, 250);
+        DrawCenteredTextEx(GetScreenHeight() / 3, "GAME NAME", 50, RAYWHITE, ashesfont);
+        //DrawCenteredText(GetScreenHeight() / 3, "GAME NAME", 50, RAYWHITE);
         Rectangle boton = { 10,10,50,50 };
 
         if (DrawCenteredButton(GetScreenHeight()/2, 100, 30, "PLAY")) {
@@ -102,7 +105,9 @@ int main() {
     InitAudioDevice();
 
     GuiLoadStyle("styles/ashes/ashes.rgs");
-
+    ashesfont = LoadFontEx("styles / ashes / v5loxical.ttf", 32, 0, 250);
+    
+    
     ApplicationState = ApplicationStates::Startup;
 
     SetTargetFPS(144);
@@ -151,6 +156,7 @@ int main() {
     }
 
     // De-Initialization
+    UnloadFont(ashesfont);
     //--------------------------------------------------------------------------------------
     CloseAudioDevice();
     CloseWindow();      // Close window and audio devivce  and OpenGL context

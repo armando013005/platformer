@@ -26,6 +26,18 @@ void Screen::DrawCenteredText(int y, const char* text, int fontSize, Color color
 	DrawText(text, GetScreenWidth() / 2 - textWidth / 2, y - fontSize / 2, fontSize, color);
 }
 
+void Screen::DrawCenteredTextEx(int y, const char* text, int fontSize, Color color, Font font)
+{
+	float spacing = fontSize / 10;
+
+	Vector2 textWidth = MeasureTextEx(font, text, fontSize, spacing);
+
+	Vector2 posicion = { GetScreenWidth() / 2 - textWidth.x / 2 ,y - fontSize / 2 };
+
+	DrawTextEx(font, text, posicion, fontSize, spacing, color);
+	//DrawText(text, GetScreenWidth() / 2 - textWidth.x / 2, y - fontSize / 2, fontSize, color);
+}
+
 bool Screen::DrawCenteredButton(float y, float width, float height, const char* text)
 {
 	if (width < MeasureText(text,10)) {
