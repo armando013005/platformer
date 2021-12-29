@@ -1,18 +1,16 @@
 #define RAYGUI_IMPLEMENTATION
+#include "include/main.h"
 #include <raylib.h>
 #include "include/raygui.h"
 
+#include "include/loading.h"
 #include "include/game.h"
-#include "include/main.h"
 #include "include/pause.h"
 #include "include/screens.h"
 
-
-int windowWith = 1280;
-int windowHeight = 720;
+int windowWith = 800;
+int windowHeight = 600;
 int framecounter = 0;
-
-Font ashesfont;
 
 enum class ApplicationStates
 {
@@ -24,32 +22,26 @@ enum class ApplicationStates
     Quiting
 } ApplicationState;
 
-void QuitApp() {
-    ApplicationState = ApplicationStates::Quiting;
-}
-
 class StarupScreen : public Screen
 {
 public:
     void Draw() override {
-        Color blanco = { 245, 245, 245, 255-framecounter };
-        DrawCenteredTextEx(GetScreenHeight()/2, "MADE WITH RAYLIB", 50, blanco, ashesfont);
+        Color blanco = { 245, 245, 245, 255 - framecounter };
+        DrawCenteredTextEx(GetScreenHeight() / 2, "MADE WITH RAYLIB", 50, blanco, GetFont(0));
 
     }
 }starupScreen;
 
-
-class MainMenu : public Screen
-{
+class MainMenu : public Screen{
 public:
     void Draw() override {
 
         //ashesfont = LoadFontEx("styles / ashes / v5loxical.ttf", 32, 0, 250);
-        DrawCenteredTextEx(GetScreenHeight() / 3, "GAME NAME", 50, RAYWHITE, ashesfont);
+        DrawCenteredTextEx(GetScreenHeight() / 3, "GAME NAME", 50, RAYWHITE, GetFont(0));
         //DrawCenteredText(GetScreenHeight() / 3, "GAME NAME", 50, RAYWHITE);
         Rectangle boton = { 10,10,50,50 };
 
-        if (DrawCenteredButton(GetScreenHeight()/2, 100, 30, "PLAY")) {
+        if (DrawCenteredButton(GetScreenHeight() / 2, 100, 30, "PLAY")) {
             ApplicationState = ApplicationStates::Running;
         }
 
@@ -60,6 +52,9 @@ public:
     }
 }mainMenu;
 
+void QuitApp() {
+    ApplicationState = ApplicationStates::Quiting;
+}
 
 void gotomenu() {
     ApplicationState = ApplicationStates::Menu;
@@ -67,16 +62,16 @@ void gotomenu() {
 }
 
 void UpdateStartup() {
+
+    ApplicationState = ApplicationStates::Startup;
+
     if (GetTime() >= 2) {
         gotomenu();
     }
     else {
         SetActiveScreen(&starupScreen);
     }
-}
-
-void UpdateLoad() {
-
+    
 }
 
 void StartGame() {
@@ -99,16 +94,10 @@ void ResumeGame() {
 
 int main() {
 	
-    
-
 	InitWindow(windowWith, windowHeight, "Plataformer");
     InitAudioDevice();
-
-    GuiLoadStyle("styles/ashes/ashes.rgs");
-    ashesfont = LoadFontEx("styles / ashes / v5loxical.ttf", 32, 0, 250);
     
-    
-    ApplicationState = ApplicationStates::Startup;
+    ApplicationState = ApplicationStates::Loading;
 
     SetTargetFPS(144);
    
@@ -116,9 +105,8 @@ int main() {
 
     while (!WindowShouldClose() && ApplicationState != ApplicationStates::Quiting)    // Detect window close button or ESC key
     {
-        // Update
+        // Update ----------------------------------------------------------------------------
 
-        //----------------------------------------------------------------------------------
         switch (ApplicationState)
         {
         case ApplicationStates::Loading:
@@ -152,11 +140,16 @@ int main() {
         
         //----------------------------------------------------------------------------------
         
-       
     }
 
     // De-Initialization
-    UnloadFont(ashesfont);
+
+    UnloadAll();
+   
+    /*
+    UnloadFont(fuentes[0]);
+    UnloadTexture(sprites[0]);
+    */
     //--------------------------------------------------------------------------------------
     CloseAudioDevice();
     CloseWindow();      // Close window and audio devivce  and OpenGL context
@@ -164,3 +157,4 @@ int main() {
 
     return 0;
 }
+

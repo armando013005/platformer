@@ -10,6 +10,9 @@
     <Filter Include="styles">
       <UniqueIdentifier>{1a8488c5-ed9b-46fe-ab49-169a14e8edde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tiles">
+      <UniqueIdentifier>{23b661b0-9c7e-4957-a37d-6b0e8b46e6ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,5 +60,13 @@
     <Font Include="styles\ashes\v5loxical.ttf">
       <Filter>styles</Filter>
     </Font>
+    <Font Include="fuentes\v5loxicarrobusta.ttf">
+      <Filter>styles</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Tiles\Default\tile_0300.png">
+      <Filter>tiles</Filter>
+    </Image>
   </ItemGroup>
 </Project>

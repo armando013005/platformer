@@ -193,7 +193,11 @@
     <None Include="styles\ashes\ashes.rgs" />
   </ItemGroup>
   <ItemGroup>
+    <Font Include="fuentes\v5loxicarrobusta.ttf" />
     <Font Include="styles\ashes\v5loxical.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Tiles\Default\tile_0300.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -16,9 +16,6 @@ void DrawScreen()
 		ActiveScreen->Draw();
 }
 
-void Screen::DrawInGameMenu() {
-	
-}
 
 void Screen::DrawCenteredText(int y, const char* text, int fontSize, Color color)
 {
