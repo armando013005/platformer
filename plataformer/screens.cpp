@@ -17,13 +17,13 @@ void DrawScreen()
 }
 
 
-void Screen::DrawCenteredText(int y, const char* text, int fontSize, Color color)
+void DrawCenteredText(int y, const char* text, int fontSize, Color color)
 {
 	int textWidth = MeasureText(text, fontSize);
 	DrawText(text, GetScreenWidth() / 2 - textWidth / 2, y - fontSize / 2, fontSize, color);
 }
 
-void Screen::DrawCenteredTextEx(int y, const char* text, int fontSize, Color color, Font font)
+void DrawCenteredTextEx(int y, const char* text, int fontSize, Color color, Font font)
 {
 	float spacing = fontSize / 10;
 
@@ -35,7 +35,7 @@ void Screen::DrawCenteredTextEx(int y, const char* text, int fontSize, Color col
 	//DrawText(text, GetScreenWidth() / 2 - textWidth.x / 2, y - fontSize / 2, fontSize, color);
 }
 
-bool Screen::DrawCenteredButton(float y, float width, float height, const char* text)
+bool DrawCenteredButton(float y, float width, float height, const char* text)
 {
 	if (width < MeasureText(text,10)) {
 		width += MeasureText(text, 10);

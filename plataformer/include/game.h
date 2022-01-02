@@ -2,15 +2,6 @@
 #include <raylib.h>
 
 
-class Plataforma {
-public:
-    Rectangle Plataformas = { 5,650,600,100 };
-    Color color = GRAY;
-    Texture2D textura;
-    bool piso = true;
-
-    //void Dibujar();
-};
 
 class Entidad
 {
@@ -30,12 +21,8 @@ private:
 };
 
 typedef struct {
-
     Rectangle Rec;
-    bool pico = 0;
-    bool pared = 0;
-    bool piso = 0;
-    Color color = GREEN;
+    int Es; // 0 piso, 1 pared, 2 techo
 
 }PlatformHitbox;
 
