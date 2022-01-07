@@ -12,4 +12,8 @@ void QuitApp();
 
 void gotomenu();
 
+void LoadComplete();
+
+void SetupWindow();
+
 void ResumeGame();

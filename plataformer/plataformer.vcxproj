@@ -179,7 +179,9 @@
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pause.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="screens.cpp" />
+    <ClCompile Include="sprites.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\game.h" />
@@ -188,16 +190,22 @@
     <ClInclude Include="include\pause.h" />
     <ClInclude Include="include\raygui.h" />
     <ClInclude Include="include\screens.h" />
+    <ClInclude Include="include\sprites.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="styles\ashes\ashes.rgs" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="fuentes\v5loxicarrobusta.ttf" />
     <Font Include="styles\ashes\v5loxical.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Tilemap\monochrome_tilemap.png" />
     <Image Include="Tiles\Default\tile_0300.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="plataformer.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

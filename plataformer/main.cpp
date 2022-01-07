@@ -27,7 +27,7 @@ class StarupScreen : public Screen
 public:
     void Draw() override {
         Color blanco = { 245, 245, 245, 255 - framecounter };
-        DrawCenteredTextEx(GetScreenHeight() / 2, "MADE WITH RAYLIB", 50, blanco, GetFont(0));
+        DrawCenteredTextEx(GetScreenHeight() / 2, "Made by Armando Orozco\n     @armando013005", 40, blanco, GetFont(0));
 
     }
 }starupScreen;
@@ -37,7 +37,7 @@ public:
     void Draw() override {
 
         //ashesfont = LoadFontEx("styles / ashes / v5loxical.ttf", 32, 0, 250);
-        DrawCenteredTextEx(GetScreenHeight() / 3, "GAME NAME", 50, RAYWHITE, GetFont(0));
+        DrawCenteredTextEx(GetScreenHeight() / 3, "THE FAT FIREFLY", 40, RAYWHITE, GetFont(0));
         //DrawCenteredText(GetScreenHeight() / 3, "GAME NAME", 50, RAYWHITE);
         Rectangle boton = { 10,10,50,50 };
 
@@ -61,11 +61,46 @@ void gotomenu() {
     SetActiveScreen(&mainMenu);
 }
 
+void LoadComplete()
+{
+    ApplicationState = ApplicationStates::Startup;
+    
+    /*ApplicationState = ApplicationStates::Menu;
+    SetActiveScreen(&mainMenu);*/
+
+}
+
+void SetupWindow()
+{
+    //funcion robadita del rpg example xdd https://github.com/raylib-extras/RPGExample/blob/main/RPG/main.cpp
+
+    SetWindowMinSize(800, 600);
+    SetExitKey(0);
+    SetTargetFPS(144);
+
+    // load an image for the window icon
+    Image icon = LoadImage("Tiles/Default/tile_0300.png");
+
+    // ensure that the picture is in the correct format
+    ImageFormat(&icon, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
+
+    // replace the background and border colors with transparent
+    ImageColorReplace(&icon, BLACK, BLANK);
+    ImageColorReplace(&icon, Color{ 136,136,136,255 }, BLANK);
+
+    // set the icon
+    SetWindowIcon(icon);
+
+    // free the image data
+    UnloadImage(icon);
+}
+
+
 void UpdateStartup() {
 
     ApplicationState = ApplicationStates::Startup;
 
-    if (GetTime() >= 2) {
+    if (GetTime() >= 3.f) {
         gotomenu();
     }
     else {
@@ -93,9 +128,13 @@ void ResumeGame() {
 }
 
 int main() {
-	
+
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
 	InitWindow(windowWith, windowHeight, "Plataformer");
+    SetupWindow();
     InitAudioDevice();
+
+    InitResourses();
     
     ApplicationState = ApplicationStates::Loading;
 
@@ -135,6 +174,7 @@ int main() {
         ClearBackground(BLACK);
 
         DrawScreen();
+
 
         EndDrawing();
         

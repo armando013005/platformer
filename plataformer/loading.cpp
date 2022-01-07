@@ -1,25 +1,91 @@
 #include "include/main.h"
 #include <raylib.h>
+#include "include/screens.h"
 #include "include/loading.h"
 #include "include/raygui.h"
+#include "include/sprites.h"
 #include <vector>
+#include <deque>
+#include <string>
+
+int LoadedItems, TotalToLoad;
+
+class LoadingScreen : public Screen
+{
+public:
+    std::string LoadingText = "Loading...";
+
+    LoadingScreen()
+    {
+        int size = MeasureText(LoadingText.c_str(), 20);
+        Origin.x = GetScreenWidth() * 0.5f - size * 0.5f;
+        Origin.y = GetScreenHeight() * 0.5f - 10;
+
+        LeftSpinner.x = Origin.x - 25.0f;
+        RightSpinner.x = Origin.x + size + 25.0f;
+        LeftSpinner.y = RightSpinner.y = GetScreenHeight() * 0.5f;
+
+        LeftSpinner.width = RightSpinner.width = 20;
+        LeftSpinner.height = RightSpinner.height = 20;
+    }
+
+    void Draw() override
+    {
+        // tell them we are loading
+        DrawText(LoadingText.c_str(), int(Origin.x), int(Origin.y), 20, WHITE);
+
+        // some spinny things to know that the app hasn't locked up
+        DrawRectanglePro(LeftSpinner, Vector2{ 10, 10 }, float(GetTime()) * 180.0f, WHITE);
+        DrawRectanglePro(RightSpinner, Vector2{ 10, 10 }, float(GetTime()) * -180.0f, WHITE);
+
+        // progress bar.
+        float progressWidth = RightSpinner.x - LeftSpinner.x;
+        DrawRectangle(int(LeftSpinner.x), int(LeftSpinner.y + 20), (int)(progressWidth * Progress), 5, BLACK);
+    }
+
+    Vector2 Origin = { 0,0 };
+
+    Rectangle LeftSpinner = { 0,0 };
+    Rectangle RightSpinner = { 0,0 };
+
+    // Load progress 0 = 0% 1 = 100%
+    float Progress = 0;
+};
+
+LoadingScreen* LoadScreen = nullptr;
+std::deque<std::string> TtoLoad;
+std::deque<std::string> StoLoad;
 
 std::vector<Font> fuentes;
 std::vector<Texture2D> sprites;
-std::vector<Texture2D> background;
+std::vector<Sound> Sounds;
 
-void UpdateLoad() {
+void InitResourses() {
 
-    GuiLoadStyle("styles/ashes/ashes.rgs");
-    Font ashes = LoadFontEx("fuentes/ v5loxicarrobusta.ttf", 32, 0, 250);
-    fuentes.push_back(ashes);
+    LoadScreen = new LoadingScreen();
+    SetActiveScreen(LoadScreen);
 
-    sprites.push_back(LoadTexture("Tiles/Transparent/tile_0300.png"));
+    GuiLoadStyle("styles/ashes/ashesR.rgs");
+    int fontc = 78;
+    
+    fuentes.push_back(LoadFont("fuentes/GREEN_NATURE.ttf"));
 
-    background.push_back(LoadTexture("levels/default.png"));
+    TtoLoad.push_back("Tiles/Transparent/tile_0300.png");
 
-    UpdateStartup();
+    TtoLoad.push_back("Tilemap/monochrome_tilemap_transparent.png");
+    
+    TtoLoad.push_back("levels/default.png");
+
+    TotalToLoad = TtoLoad.size() + StoLoad.size();
 }
+
+void FinalizeLoad() {
+
+    LoadSprites(1, 20, 20, 1);
+
+    SetCustomSpriteOrigin(300, {1,3});
+}
+
 
 void UnloadAll() {
     for (int i = 0; i > fuentes.size(); i++) {
@@ -30,8 +96,8 @@ void UnloadAll() {
         UnloadTexture(sprites[i]);
     }
 
-    for (int i = 0; i > background.size(); i++) {
-        UnloadTexture(background[i]);
+    for (int i = 0; i > Sounds.size(); i++) {
+        UnloadSound(Sounds[i]);
     }
 }
 
@@ -43,7 +109,14 @@ const Texture2D& GetTexture(int id) {
 
     return sprites[id];
 }
+const Sound& GetSound(int id) {
+    if (id < 0 || id > Sounds.size()) {
 
+        return Sounds[0];
+    }
+
+    return Sounds[id];
+}
 const Font& GetFont(int id) {
     if (id < 0 || id > fuentes.size()) {
 
@@ -53,11 +126,37 @@ const Font& GetFont(int id) {
     return fuentes[id];
 }
 
-const Texture2D& GetBackground(int id) {
-    if (id < 0 || id > background.size()) {
+void UpdateLoad() {
 
-        return background[0];
+    //esta funcion tambien esta robadita del rpg example xdd https://github.com/raylib-extras/RPGExample/blob/main/RPG/loading.cpp
+    if (TtoLoad.empty() && StoLoad.empty())
+    {
+        FinalizeLoad();
+        LoadComplete();
+        return;
     }
 
-    return background[id];
+    // load some resources
+    // we don't want to load them all in one shot, that may take some time, and the app will look like it is dead
+    // so we only load a few per frame.
+    const int maxToLoadPerFrame = 1;
+
+    for (int i = 0; i < maxToLoadPerFrame; ++i)
+    {
+        if (!TtoLoad.empty())
+        {
+            sprites.push_back(LoadTexture(TtoLoad.front().c_str()));
+            TtoLoad.pop_front();
+
+            LoadedItems++;
+        }
+        else if (!StoLoad.empty())
+        {
+            Sounds.push_back(LoadSound(StoLoad.front().c_str()));
+            StoLoad.pop_front();
+
+            LoadedItems++;
+        }
+        LoadScreen->Progress = LoadedItems / float(TotalToLoad);
+    }
 }

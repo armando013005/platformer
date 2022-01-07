@@ -30,6 +30,12 @@
     <ClCompile Include="loading.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
+    <ClCompile Include="sprites.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\game.h">
@@ -50,6 +56,13 @@
     <ClInclude Include="include\loading.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="include\sprites.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="styles\ashes\ashes.rgs">
@@ -60,13 +73,16 @@
     <Font Include="styles\ashes\v5loxical.ttf">
       <Filter>styles</Filter>
     </Font>
-    <Font Include="fuentes\v5loxicarrobusta.ttf">
-      <Filter>styles</Filter>
-    </Font>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Tiles\Default\tile_0300.png">
       <Filter>tiles</Filter>
     </Image>
+    <Image Include="Tilemap\monochrome_tilemap.png">
+      <Filter>tiles</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="plataformer.rc" />
   </ItemGroup>
 </Project>
