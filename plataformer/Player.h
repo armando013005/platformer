@@ -5,17 +5,16 @@
 class Entidad
 {
 public:
-    Vector2 Position = { 20,70 };
+    Vector2 Position = { 20,160 };
     int texture = 300;
-    Rectangle hitbox = {0,0,0,0};
+    Rectangle hitbox = {Position.x,Position.y,14,13};
     Color color = RED;
     Ray ray = {
 
     };
     bool canJump = false;
-    float velocidad = 0;
-    float VVertical = 1.f;
-    float PosX = 50;
+    float Vel_x = 0;
+    float Vel_y = 1.f;
 
 
 private:
@@ -29,8 +28,8 @@ typedef struct {
 }PlatformHitbox;
 
 
-void MovePlayer(Entidad* Player);
 
-void Collisions(Entidad* Player, PlatformHitbox* Objeto, int objetos);
+
+void UpdatePlayer(Entidad* Player, PlatformHitbox* Objeto, int objetos);
 
 void UpdateCameraPlayerBoundsPush(Camera2D* camera, Entidad* player, int width, int height);

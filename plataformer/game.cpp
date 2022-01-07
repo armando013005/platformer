@@ -15,12 +15,12 @@ PlatformHitbox Objeto[objetos]{
     {{0,224,240,16},0},
     {{0,16,16,224},1},
     {{240,16,16,224},1},
-    {{16,24,224,16},2}
+    {{16,18,224,16},0}
 };
 
 
                         //solo un int
-// {x,y,width,heigth},(0 piso, 1 pared, 2 techo)}
+// {x,y,width,heigth},(0 horizontal, 1 vertical)}
     
 Camera2D camera = {
     camera.offset = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f },
@@ -43,9 +43,9 @@ void DrawPlayer() {
 
     DrawText(TextFormat("py: %f", Player.Position.y), Player.Position.x, Player.Position.y - 50, 10, WHITE);
 
-    DrawText(TextFormat("v: %f", Player.velocidad), Player.Position.x, Player.Position.y - 70, 10, WHITE);
+    DrawText(TextFormat("v: %f", Player.Vel_x), Player.Position.x, Player.Position.y - 70, 10, WHITE);
 
-    DrawText(TextFormat("vv: %f", Player.VVertical), Player.Position.x, Player.Position.y - 60, 10, WHITE);
+    DrawText(TextFormat("vv: %f", Player.Vel_y), Player.Position.x, Player.Position.y - 60, 10, WHITE);
 
     //oDrawRectangleLinesEx(Player.hitbox, 1, GREEN);
 }
@@ -55,7 +55,7 @@ public:
     void Draw() override {
 
         
-        //BeginMode2D(camera);
+        BeginMode2D(camera);
         
         DrawTexture(GetTexture(2), 0, 0, WHITE);
         
@@ -66,7 +66,7 @@ public:
         }
         
        
-        //EndMode2D();
+        EndMode2D();
         
     }
 }game;
@@ -77,9 +77,7 @@ public:
 void UpdateGame() {
     
     
-    MovePlayer(&Player);
-
-    Collisions(&Player, &Objeto[0], objetos);
+    UpdatePlayer(&Player, &Objeto[0], objetos);
     
     UpdateCameraPlayerBoundsPush(&camera,&Player,GetScreenWidth(),GetScreenHeight());
 
