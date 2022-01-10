@@ -1,7 +1,9 @@
-#include "Player.h"
+#include "include/Player.h"
 #include "include/game.h"
-
-void UpdatePlayer(Entidad* Player,PlatformHitbox* Objeto, int objetos) {
+#include "include/map.h"
+#include "include/tile_map.h"
+#include <vector>
+void UpdatePlayer(Entidad* Player) {
 
 
     float deltatime = GetFrameTime();
@@ -29,30 +31,53 @@ void UpdatePlayer(Entidad* Player,PlatformHitbox* Objeto, int objetos) {
     Player->hitbox.y += Player->Vel_y * deltatime;
     Player->Vel_y += Gravedad * deltatime;
 
-
+    
+    
     //collisions
-
-    for (int i = 0; i < objetos; i++)
+    for (const TileObject* Pi: GetMapObjectsOfType("Colider"))
     {
-        PlatformHitbox* Pi = Objeto + i;
         Entidad* Pl = Player;
-        switch (Pi->Es)
+        std::string name = Pi->Name;
+        
+        enum class TiposDeColisiones
         {
-        case 0:
-            if (Pl->hitbox.x < Pi->Rec.x + Pi->Rec.width &&
-                Pl->hitbox.x + Pl->hitbox.width > Pi->Rec.x &&
-                Pl->hitbox.y < Pi->Rec.y + Pi->Rec.height &&
-                Pl->hitbox.height + Pl->hitbox.y > Pi->Rec.y)
+            Pared,
+            Piso,
+            Picos,
+            OneSide
+        };
+
+        TiposDeColisiones Tipo = TiposDeColisiones::Pared;
+        if (name == "pared") {
+            Tipo = TiposDeColisiones::Pared;
+        }
+        else if(name == "piso") {
+            Tipo = TiposDeColisiones::Piso;
+        }
+        else if (name == "pico") {
+            Tipo = TiposDeColisiones::Picos;
+        }
+        else if (name == "OneSide") {
+            Tipo = TiposDeColisiones::OneSide;
+        }
+
+        switch (Tipo)
+        {
+        case TiposDeColisiones::Piso:
+            if (Pl->hitbox.x < Pi->Bounds.x + Pi->Bounds.width &&
+                Pl->hitbox.x + Pl->hitbox.width > Pi->Bounds.x &&
+                Pl->hitbox.y < Pi->Bounds.y + Pi->Bounds.height &&
+                Pl->hitbox.height + Pl->hitbox.y > Pi->Bounds.y)
             {
                 //saltando
                 if (Pl->Vel_y < 0) {
-                    Pl->hitbox.y = Pi->Rec.y + Pi->Rec.height;
+                    Pl->hitbox.y = Pi->Bounds.y + Pi->Bounds.height;
                     Pl->Vel_y = 0;
                     //Pl->Position.x = Pl->hitbox.x;
                 }
                 else//cayendo
                     if (Pl->Vel_y > 0) {
-                        Pl->hitbox.y = Pi->Rec.y - Pl->hitbox.height;
+                        Pl->hitbox.y = Pi->Bounds.y - Pl->hitbox.height;
                         Pl->Vel_y = 0;
                         ColPiso = true;
                         //Pl->Position.x = Pl->hitbox.x;
@@ -61,24 +86,46 @@ void UpdatePlayer(Entidad* Player,PlatformHitbox* Objeto, int objetos) {
                 
             }
             break;
-        case 1:
-            if (Pl->hitbox.x < Pi->Rec.x + Pi->Rec.width &&
-                Pl->hitbox.x + Pl->hitbox.width > Pi->Rec.x &&
-                Pl->hitbox.y < Pi->Rec.y + Pi->Rec.height &&
-                Pl->hitbox.height + Pl->hitbox.y > Pi->Rec.y
+        case TiposDeColisiones::Pared:
+            if (Pl->hitbox.x < Pi->Bounds.x + Pi->Bounds.width &&
+                Pl->hitbox.x + Pl->hitbox.width > Pi->Bounds.x &&
+                Pl->hitbox.y < Pi->Bounds.y + Pi->Bounds.height &&
+                Pl->hitbox.height + Pl->hitbox.y > Pi->Bounds.y
                 )
             {
 
                 if (Pl->Vel_x > 0) {
-                    Pl->hitbox.x = Pi->Rec.x - Pl->hitbox.width;
+                    Pl->hitbox.x = Pi->Bounds.x - Pl->hitbox.width;
                     Pl->Vel_x = 0;
                     //Pl->Position.x = Pl->hitbox.x;
                 }else
                 if (Pl->Vel_x < 0) {
-                    Pl->hitbox.x = Pi->Rec.x + Pi->Rec.width;
+                    Pl->hitbox.x = Pi->Bounds.x + Pi->Bounds.width;
                     Pl->Vel_x = 0;
                     //Pl->Position.x = Pl->hitbox.x;
                 }
+            }
+            break;
+        case TiposDeColisiones::OneSide:
+            if (Pl->hitbox.x < Pi->Bounds.x + Pi->Bounds.width &&
+                Pl->hitbox.x + Pl->hitbox.width > Pi->Bounds.x &&
+                Pl->hitbox.y < Pi->Bounds.y + Pi->Bounds.height &&
+                Pl->hitbox.height + Pl->hitbox.y > Pi->Bounds.y)
+            {
+                
+                if (Pl->Vel_y < 0) {
+                    //Pl->hitbox.y = Pi->Bounds.y + Pi->Bounds.height;
+                    //Pl->Vel_y = 0;
+                    //Pl->Position.x = Pl->hitbox.x;
+                }
+                else//cayendo
+                    if (Pl->Vel_y > 0) {
+                        Pl->hitbox.y = Pi->Bounds.y - Pl->hitbox.height;
+                        Pl->Vel_y = 0;
+                        ColPiso = true;
+                        //Pl->Position.x = Pl->hitbox.x;
+                    }
+                      
             }
             break;
         }
@@ -100,14 +147,15 @@ void UpdatePlayer(Entidad* Player,PlatformHitbox* Objeto, int objetos) {
 
 void UpdateCameraPlayerBoundsPush(Camera2D* camera, Entidad* player, int width, int height)
 {
-    static Vector2 bbox = { 0.6f, 0.6f };
+ 
+    static Vector2 bbox = { 0.5f, .6f };
 
     Vector2 bboxWorldMin = GetScreenToWorld2D({ (1 - bbox.x) * 0.5f * width, (1 - bbox.y) * 0.5f * height }, *camera);
     Vector2 bboxWorldMax = GetScreenToWorld2D({ (1 + bbox.x) * 0.5f * width, (1 + bbox.y) * 0.5f * height }, *camera);
     camera->offset = { (1 - bbox.x) * 0.5f * width, (1 - bbox.y) * 0.5f * height };
 
     if (player->hitbox.x < bboxWorldMin.x) camera->target.x = player->Position.x;
-    if (player->hitbox.y < bboxWorldMin.y) camera->target.y = player->Position.y;
+    if (player->hitbox.y < bboxWorldMin.y) camera->target.y = 16;
     if (player->hitbox.x > bboxWorldMax.x) camera->target.x = bboxWorldMin.x + (player->Position.x - bboxWorldMax.x);
     if (player->hitbox.y > bboxWorldMax.y) camera->target.y = bboxWorldMin.y + (player->Position.y - bboxWorldMax.y);
 }

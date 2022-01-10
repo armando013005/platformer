@@ -1,6 +1,6 @@
 #pragma once
 
-#define TileMap = 1;
+//#define TileMap = 1;
 
 void UpdateLoad();
 

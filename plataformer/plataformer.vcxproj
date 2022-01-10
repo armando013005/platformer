@@ -178,21 +178,29 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="map.cpp" />
     <ClCompile Include="pause.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PUGIXML\pugixml.cpp" />
     <ClCompile Include="screens.cpp" />
     <ClCompile Include="sprites.cpp" />
+    <ClCompile Include="tile_map_drawing.cpp" />
+    <ClCompile Include="tile_map_io.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\loading.h" />
     <ClInclude Include="include\main.h" />
+    <ClInclude Include="include\map.h" />
     <ClInclude Include="include\pause.h" />
+    <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\raygui.h" />
+    <ClInclude Include="include\resource.h" />
     <ClInclude Include="include\screens.h" />
     <ClInclude Include="include\sprites.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="include\tile_map.h" />
+    <ClInclude Include="PUGIXML\pugiconfig.hpp" />
+    <ClInclude Include="PUGIXML\pugixml.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="styles\ashes\ashes.rgs" />

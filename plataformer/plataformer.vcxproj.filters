@@ -13,6 +13,9 @@
     <Filter Include="tiles">
       <UniqueIdentifier>{23b661b0-9c7e-4957-a37d-6b0e8b46e6ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PUGIXML">
+      <UniqueIdentifier>{6c327031-fd24-492b-826e-e7b34904cb9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -36,6 +39,18 @@
     <ClCompile Include="Player.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="tile_map_drawing.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="tile_map_io.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="PUGIXML\pugixml.cpp">
+      <Filter>PUGIXML</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\game.h">
@@ -56,11 +71,25 @@
     <ClInclude Include="include\loading.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="include\sprites.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="include\tile_map.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\map.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PUGIXML\pugixml.hpp">
+      <Filter>PUGIXML</Filter>
+    </ClInclude>
+    <ClInclude Include="PUGIXML\pugiconfig.hpp">
+      <Filter>PUGIXML</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Player.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resource.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

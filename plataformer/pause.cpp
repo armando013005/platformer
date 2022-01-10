@@ -4,11 +4,14 @@
 
 #include "include/screens.h"
 #include "include/main.h"
+#include "include/map.h"
 
 class PauseMenu : public Screen {
 
 public:
 	void Draw() override {
+
+		DrawMap();
 
 		Color blanco = { 245, 245, 245, 100 };
 

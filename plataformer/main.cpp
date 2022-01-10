@@ -7,6 +7,8 @@
 #include "include/game.h"
 #include "include/pause.h"
 #include "include/screens.h"
+#include "include/map.h"
+#include "include/tile_map.h"
 
 int windowWith = 800;
 int windowHeight = 600;
@@ -37,7 +39,7 @@ public:
     void Draw() override {
 
         //ashesfont = LoadFontEx("styles / ashes / v5loxical.ttf", 32, 0, 250);
-        DrawCenteredTextEx(GetScreenHeight() / 3, "THE FAT FIREFLY", 40, RAYWHITE, GetFont(0));
+        DrawCenteredTextEx(GetScreenHeight() / 3, "GAME NAME", 40, RAYWHITE, GetFont(0));
         //DrawCenteredText(GetScreenHeight() / 3, "GAME NAME", 50, RAYWHITE);
         Rectangle boton = { 10,10,50,50 };
 
@@ -63,8 +65,9 @@ void gotomenu() {
 
 void LoadComplete()
 {
-    ApplicationState = ApplicationStates::Startup;
+    ApplicationState = ApplicationStates::Menu;
     
+    LoadMap("levels/defaulttest.tmx");
     /*ApplicationState = ApplicationStates::Menu;
     SetActiveScreen(&mainMenu);*/
 
@@ -173,6 +176,7 @@ int main() {
         BeginDrawing();
         ClearBackground(BLACK);
 
+
         DrawScreen();
 
 
@@ -186,10 +190,6 @@ int main() {
 
     UnloadAll();
    
-    /*
-    UnloadFont(fuentes[0]);
-    UnloadTexture(sprites[0]);
-    */
     //--------------------------------------------------------------------------------------
     CloseAudioDevice();
     CloseWindow();      // Close window and audio devivce  and OpenGL context

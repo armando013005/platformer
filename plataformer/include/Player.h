@@ -30,6 +30,6 @@ typedef struct {
 
 
 
-void UpdatePlayer(Entidad* Player, PlatformHitbox* Objeto, int objetos);
+void UpdatePlayer(Entidad* Player);
 
 void UpdateCameraPlayerBoundsPush(Camera2D* camera, Entidad* player, int width, int height);
