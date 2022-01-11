@@ -29,7 +29,7 @@ struct SpriteInstance
 	bool Shadow = true;
 };
 
-SpriteInstance* AddSprite(int frame, const Vector2& position);
+//SpriteInstance* AddSprite(int frame, const Vector2& position);
 void UpdateSprite(int spriteId, const Vector2& position);
 void RemoveSprite(SpriteInstance* sprite);
 void RemoveSprite(int id);

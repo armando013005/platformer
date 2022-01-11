@@ -48,8 +48,8 @@ void DrawTileMap(Camera2D& camera, const TileMap& map)
 	CurrentViewRect.x = camera.target.x - (camera.offset.x / camera.zoom);
 	CurrentViewRect.y = camera.target.y - (camera.offset.y / camera.zoom);
 
-	CurrentViewRect.width = GetScreenWidth() / camera.zoom;
-	CurrentViewRect.height = GetScreenHeight() / camera.zoom;
+	CurrentViewRect.width = 800 / camera.zoom;
+	CurrentViewRect.height = 600 / camera.zoom;
 
 	// iterate the layers, back to front
 	for (const auto& layer : map.Layers)

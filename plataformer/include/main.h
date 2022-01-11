@@ -6,7 +6,7 @@ void PauseGame();
 
 int main();
 
-void UpdateStartup();
+//void UpdateStartup();
 
 void QuitApp();
 

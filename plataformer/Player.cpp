@@ -8,7 +8,7 @@ void UpdatePlayer(Entidad* Player) {
 
     float deltatime = GetFrameTime();
     float aceleracion = 0.f;
-    float Gravedad = 300;
+    float Gravedad = 440;
     bool ColPiso = false;
 
     float prePosX = Player->hitbox.x;

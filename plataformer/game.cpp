@@ -15,7 +15,7 @@ Entidad Player;
 // {x,y,width,heigth},(0 horizontal, 1 vertical,2 playaforma flotante)}
     
 Camera2D camera = {
-    camera.offset = { GetScreenWidth() * 0.5f, GetScreenHeight() * 0.5f },
+    camera.offset = { 800 * 0.5f, 600 * 0.5f },
     camera.target = Player.Position,
     camera.rotation = 0,
     camera.zoom = 2.5f,
@@ -70,7 +70,7 @@ void UpdateGame() {
     
     UpdatePlayer(&Player);
     
-    UpdateCameraPlayerBoundsPush(&GetMapCamera(),&Player,GetScreenWidth(),GetScreenHeight());
+    UpdateCameraPlayerBoundsPush(&GetMapCamera(),&Player,800,600);
 
 
     SetActiveScreen(&game);

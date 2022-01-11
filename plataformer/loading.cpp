@@ -18,12 +18,12 @@ public:
     LoadingScreen()
     {
         int size = MeasureText(LoadingText.c_str(), 20);
-        Origin.x = GetScreenWidth() * 0.5f - size * 0.5f;
-        Origin.y = GetScreenHeight() * 0.5f - 10;
+        Origin.x = 800 * 0.5f - size * 0.5f;
+        Origin.y = 600 * 0.5f - 10;
 
         LeftSpinner.x = Origin.x - 25.0f;
         RightSpinner.x = Origin.x + size + 25.0f;
-        LeftSpinner.y = RightSpinner.y = GetScreenHeight() * 0.5f;
+        LeftSpinner.y = RightSpinner.y = 600 * 0.5f;
 
         LeftSpinner.width = RightSpinner.width = 20;
         LeftSpinner.height = RightSpinner.height = 20;
@@ -65,16 +65,16 @@ void InitResourses() {
     LoadScreen = new LoadingScreen();
     SetActiveScreen(LoadScreen);
 
-    GuiLoadStyle("styles/ashes/ashesR.rgs");
+    GuiLoadStyle("resources/styles/ashes/ashesR.rgs");
     int fontc = 78;
     
-    fuentes.push_back(LoadFont("fuentes/GREEN_NATURE.ttf"));
+    fuentes.push_back(LoadFont("resources/fuentes/GREEN_NATURE.ttf"));
 
-    TtoLoad.push_back("Tiles/Transparent/tile_0300.png");
+    TtoLoad.push_back("resources/Tiles/Transparent/tile_0300.png");
 
-    TtoLoad.push_back("Tilemap/monochrome_tilemap_transparent.png");
+    TtoLoad.push_back("resources/Tilemap/monochrome_tilemap_transparent.png");
     
-    TtoLoad.push_back("levels/default.png");
+    TtoLoad.push_back("resources/levels/default.png");
 
     TotalToLoad = TtoLoad.size() + StoLoad.size();
 }

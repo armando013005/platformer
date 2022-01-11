@@ -24,7 +24,7 @@ enum class ApplicationStates
     Quiting
 } ApplicationState;
 
-class StarupScreen : public Screen
+/*class StarupScreen : public Screen
 {
 public:
     void Draw() override {
@@ -33,21 +33,20 @@ public:
 
     }
 }starupScreen;
-
+*/
 class MainMenu : public Screen{
 public:
     void Draw() override {
 
         //ashesfont = LoadFontEx("styles / ashes / v5loxical.ttf", 32, 0, 250);
-        DrawCenteredTextEx(GetScreenHeight() / 3, "GAME NAME", 40, RAYWHITE, GetFont(0));
+        DrawCenteredTextEx(600 / 3, "GAME NAME", 40, RAYWHITE, GetFont(0));
         //DrawCenteredText(GetScreenHeight() / 3, "GAME NAME", 50, RAYWHITE);
-        Rectangle boton = { 10,10,50,50 };
 
-        if (DrawCenteredButton(GetScreenHeight() / 2, 100, 30, "PLAY")) {
+        if (DrawCenteredButton(600 / 2, 100, 30, "PLAY")) {
             ApplicationState = ApplicationStates::Running;
         }
 
-        if (DrawCenteredButton(GetScreenHeight() - GetScreenHeight() / 2.5, 70, 30, "QUIT")) {
+        if (DrawCenteredButton(600 - 600 / 2.5, 70, 30, "QUIT")) {
             QuitApp();
         }
 
@@ -67,7 +66,7 @@ void LoadComplete()
 {
     ApplicationState = ApplicationStates::Menu;
     
-    LoadMap("levels/defaulttest.tmx");
+    LoadMap("resources/levels/defaulttest.tmx");
     /*ApplicationState = ApplicationStates::Menu;
     SetActiveScreen(&mainMenu);*/
 
@@ -82,7 +81,7 @@ void SetupWindow()
     SetTargetFPS(144);
 
     // load an image for the window icon
-    Image icon = LoadImage("Tiles/Default/tile_0300.png");
+    Image icon = LoadImage("resources/Tiles/Default/tile_0300.png");
 
     // ensure that the picture is in the correct format
     ImageFormat(&icon, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
@@ -99,7 +98,7 @@ void SetupWindow()
 }
 
 
-void UpdateStartup() {
+/*void UpdateStartup() {
 
     ApplicationState = ApplicationStates::Startup;
 
@@ -111,6 +110,7 @@ void UpdateStartup() {
     }
     
 }
+*/
 
 void StartGame() {
     ApplicationState = ApplicationStates::Running;
@@ -132,7 +132,6 @@ void ResumeGame() {
 
 int main() {
 
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
 	InitWindow(windowWith, windowHeight, "Plataformer");
     SetupWindow();
     InitAudioDevice();
@@ -167,7 +166,7 @@ int main() {
             UpdatePause();
             break;
         case ApplicationStates::Startup:
-            UpdateStartup();
+            //UpdateStartup();
             break;
         }
         //----------------------------------------------------------------------------------

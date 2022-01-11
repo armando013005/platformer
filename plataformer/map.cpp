@@ -7,6 +7,7 @@
 
 #include <math.h>
 #include <unordered_map>
+#include <list>
 
 
 class EffectInstance
@@ -177,11 +178,11 @@ const TileObject* GetFirstMapObjectOfType(const char* objType, TileObject::SubTy
 	return nullptr;
 }
 
-SpriteInstance* AddSprite(int frame, const Vector2& position)
+/*SpriteInstance* AddSprite(int frame, const Vector2& position)
 {
 	NextSpriteId++;
 	return &(SpriteInstances.insert_or_assign(NextSpriteId, SpriteInstance{ NextSpriteId, true, frame, position }).first->second);
-}
+}*/
 
 void UpdateSprite(int spriteId, const Vector2& position)
 {
