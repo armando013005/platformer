@@ -188,6 +188,7 @@
 
 #if !defined(RAYGUI_STANDALONE)
 #include "raylib.h"
+#include <algorithm>
 #endif
 
 // Function specifiers in case library is build/used as a shared library (Windows)
@@ -1576,18 +1577,32 @@ void GuiLabel(Rectangle bounds, const char* text)
     //--------------------------------------------------------------------
 }
 
+    Vector2 ClampValue(Vector2 value, Vector2 min, Vector2 max)
+    {
+        Vector2 result = value;
+        result.x = (result.x > max.x) ? max.x : result.x;
+        result.x = (result.x < min.x) ? min.x : result.x;
+        result.y = (result.y > max.y) ? max.y : result.y;
+        result.y = (result.y < min.y) ? min.y : result.y;
+        return result;
+    }
 // Button control, returns true when clicked
 bool GuiButton(Rectangle bounds, const char* text)
 {
     GuiControlState state = guiState;
     bool pressed = false;
 
+
     // Update control
     //--------------------------------------------------------------------
     if ((state != GUI_STATE_DISABLED) && !guiLocked)
     {
-        Vector2 mousePoint = GetMousePosition();
-
+        float scale = std::min((float)GetScreenWidth() / 800, (float)GetScreenHeight() / 600);
+        Vector2 mouse = GetMousePosition();
+        Vector2 mousePoint = { 0 };
+        mousePoint.x = (mouse.x - (GetScreenWidth() - (800 * scale)) * 0.5f) / scale;
+        mousePoint.y = (mouse.y - (GetScreenHeight() - (600 * scale)) * 0.5f) / scale;
+        mousePoint = ClampValue(mousePoint, Vector2 { 0, 0 }, Vector2 { 800, 600 });
         // Check button state
         if (CheckCollisionPointRec(mousePoint, bounds))
         {

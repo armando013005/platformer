@@ -4,6 +4,7 @@
 #include <include/loading.h>
 #include <vector>
 #include <raymath.h>
+#include <math.h>
 
 struct SpriteInfo
 {
@@ -13,6 +14,27 @@ struct SpriteInfo
 };
 
 std::vector<SpriteInfo> Sprites;
+
+SpriteSheet LoadSpriteSheet(int textureid,int startRow,int endRows, int cols, int rows)
+{
+	SpriteSheet sheet = { 0 };
+	sheet.SheetTexture = GetTexture(textureid);
+	if (sheet.SheetTexture.id >= 0)
+	{
+		float w = (float)sheet.SheetTexture.width / cols;
+		float h = (float)sheet.SheetTexture.height / rows;
+
+		for (int y = startRow; y < 1; y++)
+		{
+			for (int x = 0; x < endRows; x++)
+			{
+				sheet.Frames.emplace_back(Rectangle{ x * w,y * h,w,h });
+			}
+		}
+	}
+
+	return std::move(sheet);
+}
 
 void LoadSprites(int TextureId, int filas, int columnas, int espaciado) {
 	
@@ -45,6 +67,48 @@ void LoadSprites(int TextureId, int filas, int columnas, int espaciado) {
 	}
 
 }
+
+void AnimDrawSprite(AnimSpriteInstance& sprite)
+{
+	if (sprite.Sheet == nullptr || sprite.Sheet->SheetTexture.id == 0 || sprite.Animation == nullptr)
+		return;
+
+	Rectangle frame = sprite.Sheet->Frames[sprite.CurrentFrame];
+	DrawTexturePro(sprite.Sheet->SheetTexture, frame, Rectangle{ sprite.Position.x,sprite.Position.y,fabsf(frame.width),fabsf(frame.height) }, sprite.Offset, 0, WHITE);
+}
+
+void SetSpriteAnimation(AnimSpriteInstance& sprite, const SpriteAnimation& animation)
+{
+	sprite.Animation = &animation;
+	sprite.CurrentFrame = animation.StartFrame;
+	sprite.FrameLifetime = 0;
+	sprite.AnimationDone = false;
+}
+
+void UpdateSpriteAnimation(AnimSpriteInstance& sprite)
+{
+	if (sprite.Animation == nullptr)
+		return;
+
+	sprite.FrameLifetime += GetFrameTime();
+	if (sprite.FrameLifetime > 1.0f / sprite.Animation->FPS)
+	{
+		sprite.FrameLifetime = 0;
+		sprite.CurrentFrame++;
+		sprite.AnimationDone = false;
+		if (sprite.CurrentFrame > sprite.Animation->EndFrame)
+		{
+			if (sprite.Animation->Loops)
+				sprite.CurrentFrame = sprite.Animation->StartFrame;
+			else
+			{
+				sprite.AnimationDone = true;
+				sprite.CurrentFrame--;
+			}
+		}
+	}
+}
+
 
 void SetCustomSpriteOrigin(int spriteId,Vector2 origin)
 {

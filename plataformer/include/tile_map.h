@@ -3,7 +3,7 @@
 #include "sprites.h"
 
 #include "raylib.h"
-
+#include "sprites.h"
 #include <stdint.h>
 #include <string>
 #include <vector>
@@ -19,7 +19,7 @@ enum class TileMapTypes
 struct Tile
 {
 	int16_t Sprite = -1;
-	uint8_t Flip = SpriteFlipNone;
+	uint8_t Flip = 0;
 };
 
 class Layer

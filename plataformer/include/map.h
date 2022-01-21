@@ -2,7 +2,7 @@
 
 #include "raylib.h"
 #include "include/tile_map.h"
-
+#include "Player.h"
 #include <vector>
 
 // map basics

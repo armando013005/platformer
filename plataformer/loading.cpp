@@ -59,7 +59,7 @@ std::deque<std::string> StoLoad;
 std::vector<Font> fuentes;
 std::vector<Texture2D> sprites;
 std::vector<Sound> Sounds;
-
+std::vector<SpriteSheet> anim;
 void InitResourses() {
 
     LoadScreen = new LoadingScreen();
@@ -70,7 +70,7 @@ void InitResourses() {
     
     fuentes.push_back(LoadFont("resources/fuentes/GREEN_NATURE.ttf"));
 
-    TtoLoad.push_back("resources/Tiles/Transparent/tile_0300.png");
+    TtoLoad.push_back("resources/Tiles/Default/tile_0300.png");
 
     TtoLoad.push_back("resources/Tilemap/monochrome_tilemap_transparent.png");
     
@@ -83,6 +83,8 @@ void FinalizeLoad() {
 
     LoadSprites(1, 20, 20, 1);
 
+    SpriteSheet playeAnim = LoadSpriteSheet(1, 15, 5, 20, 20);
+    anim.push_back(playeAnim);
     SetCustomSpriteOrigin(300, {1,3});
 }
 
@@ -99,6 +101,15 @@ void UnloadAll() {
     for (int i = 0; i > Sounds.size(); i++) {
         UnloadSound(Sounds[i]);
     }
+}
+
+const SpriteSheet& GetSpriteSheet() {
+    if (anim.empty()) {
+
+        return anim[NULL] ;
+    }
+
+    return anim[0];
 }
 
 const Texture2D& GetTexture(int id) {

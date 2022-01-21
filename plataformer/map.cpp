@@ -40,11 +40,11 @@ void LoadMap(const char* file)
 	ClearSprites();
 	ReadTileMap(file, CurrentMap);
 
-	MapCamera.offset.x =0;
-	MapCamera.offset.y = 0;
+	MapCamera.offset.x =GetScreenWidth()/2;
+	MapCamera.offset.y = GetScreenHeight()/2;
 
 	MapCamera.rotation = 0;
-	MapCamera.zoom = 2.5;
+	MapCamera.zoom = 2.f;
 
 	MapCamera.target.x = 0;
 	MapCamera.target.y = 0;
@@ -58,8 +58,8 @@ void LoadMap(const char* file)
 		MapBounds.width = (CurrentMap.TileLayers[index]->Size.x * CurrentMap.TileLayers[index]->TileSize.x);
 		MapBounds.height = (CurrentMap.TileLayers[index]->Size.y * CurrentMap.TileLayers[index]->TileSize.y);
 
-		MapCamera.target.x = 0;// MapBounds.width / 2;
-		MapCamera.target.y = 0;// MapBounds.height / 2;
+		MapCamera.target.x = MapBounds.width / 2;
+		MapCamera.target.y = MapBounds.height / 2;
 	}
 }
 
@@ -178,11 +178,11 @@ const TileObject* GetFirstMapObjectOfType(const char* objType, TileObject::SubTy
 	return nullptr;
 }
 
-/*SpriteInstance* AddSprite(int frame, const Vector2& position)
+SpriteInstance* AddSprite(int frame, const Vector2& position)
 {
 	NextSpriteId++;
 	return &(SpriteInstances.insert_or_assign(NextSpriteId, SpriteInstance{ NextSpriteId, true, frame, position }).first->second);
-}*/
+}
 
 void UpdateSprite(int spriteId, const Vector2& position)
 {
