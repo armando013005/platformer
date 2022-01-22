@@ -1,6 +1,6 @@
 #include "include/tile_map.h"
 #include "include/sprites.h"
-#include <memory>
+
 #include "PUGIXML/pugixml.hpp"
 
 const unsigned FLIPPED_HORIZONTALLY_FLAG = 0x80000000;
@@ -62,7 +62,7 @@ bool ReadTileSetNode(pugi::xml_node root, int idOffset, TileMap& map)
 			std::string source;
 			if (!ReadImageData(width, height, source, child.child("image")))
 				continue;
-			
+
 			// this is where tilesheet data would go
 		}
 		else if (n == "image")
@@ -321,7 +321,7 @@ bool ReadTiledXML(pugi::xml_document& doc, TileMap& map, const std::string& file
 						val &= ~(FLIPPED_HORIZONTALLY_FLAG | FLIPPED_VERTICALLY_FLAG | FLIPPED_DIAGONALLY_FLAG);
 
 						// subtract 1 from the index, since our sprites start at 0 not 1
-						tile.Sprite = static_cast<int16_t>(val-1);
+						tile.Sprite = static_cast<int16_t>(val - 1);
 
 						layer.Tiles.emplace_back(std::move(tile));
 						posX++;

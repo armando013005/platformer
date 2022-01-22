@@ -67,13 +67,13 @@ void InitResourses() {
 
     GuiLoadStyle("resources/styles/ashes/ashesR.rgs");
     int fontc = 78;
-    
+
     fuentes.push_back(LoadFont("resources/fuentes/GREEN_NATURE.ttf"));
 
-    TtoLoad.push_back("resources/Tiles/Default/tile_0300.png");
+    TtoLoad.push_back("resources/Tiles/Transparent/tile_0300.png");
 
     TtoLoad.push_back("resources/Tilemap/monochrome_tilemap_transparent.png");
-    
+
     TtoLoad.push_back("resources/levels/default.png");
 
     TotalToLoad = TtoLoad.size() + StoLoad.size();
@@ -83,20 +83,20 @@ void FinalizeLoad() {
 
     LoadSprites(1, 20, 20, 1);
 
-    SetCustomSpriteOrigin(300, {1,3});
+    SetCustomSpriteOrigin(300, { 1,3 });
 }
 
 
 void UnloadAll() {
-    for (int i = 0; i < fuentes.size(); i++) {
+    for (int i = 0; i > fuentes.size(); i++) {
         UnloadFont(fuentes[i]);
     }
 
-    for (int i = 0; i < sprites.size(); i++) {
+    for (int i = 0; i > sprites.size(); i++) {
         UnloadTexture(sprites[i]);
     }
 
-    for (int i = 0; i < Sounds.size(); i++) {
+    for (int i = 0; i > Sounds.size(); i++) {
         UnloadSound(Sounds[i]);
     }
 }

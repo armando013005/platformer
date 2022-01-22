@@ -96,11 +96,11 @@ public:
         
         DrawPlayer();
         
-        for (int i = 0; i < frGetWorldBodyCount(Juego.f_world); i++) {
+        /*for (int i = 0; i < frGetWorldBodyCount(Juego.f_world); i++) {
             frBody* body = frGetWorldBody(Juego.f_world, i);
 
             frDrawBodyAABB(body,GREEN);
-        }
+        }*/
         //frDrawBody(Player.Body,GREEN);
        
         EndMode2D();
