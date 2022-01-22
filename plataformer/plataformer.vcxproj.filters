@@ -95,6 +95,9 @@
     <ClInclude Include="include\resource.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="timer.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="styles\ashes\ashes.rgs">

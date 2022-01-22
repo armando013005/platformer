@@ -11,7 +11,8 @@
 #include "ferox.h"
 #include <vector>
 
-#define PLAYER_MATERIAL   { 15.f, 0.0f, 1.0f, 1.f }
+
+#define PLAYER_MATERIAL   { 23.f, 0.0f, 0.0f, 0.9f }
 
 bool firstLoad = true;
 int currentlvl;
@@ -42,27 +43,38 @@ void PushLevels() {
 void initphysics()
 {
     const TileObject* world = GetFirstMapObjectOfType("World");
+    
+    if (Player.maxP > 0) {
+        frClearWorld(Juego.f_world);
+        Player.maxP = 0;
+        frSetWorldBounds(Juego.f_world,frRecPixelsToMeters(world->Bounds));
+    }
+    else {
+        Juego.f_world = frCreateWorld(frVec2ScalarMultiply({ 0.f,15.0f }, 0.00001f), frRecPixelsToMeters(world->Bounds));
+    }
+    
     const TileObject* Spawn = GetFirstMapObjectOfType("Spawn");
     std::vector <const TileObject*> walls = GetMapObjectsOfType("Colider");
 
-    Juego.f_world = frCreateWorld(frVec2ScalarMultiply({ 0.f,15.0f }, 0.00001f), world->Bounds);
+    
 
     Player.Body = frCreateBodyFromShape(
         FR_BODY_DYNAMIC,
-        FR_FLAG_NONE,
+        FR_FLAG_INFINITE_INERTIA,
         frVec2PixelsToMeters({ Spawn->Bounds.x + 14/2,Spawn->Bounds.y+13/2 }),
-        frCreateRectangle(PLAYER_MATERIAL, frNumberPixelsToMeters(14),
-            frNumberPixelsToMeters(13))
+        frCreateRectangle(PLAYER_MATERIAL, frNumberPixelsToMeters(12),
+            frNumberPixelsToMeters(10))
     );
     
     frAddToWorld(Juego.f_world, Player.Body);
 
     for (auto m : walls) {
+        Player.maxP++;
         frBody* wal = frCreateBodyFromShape(
         FR_BODY_STATIC,
         FR_FLAG_WALL,
         frVec2PixelsToMeters({ m->Bounds.x + (m->Bounds.width/2), m->Bounds.y + (m->Bounds.height/2) }),
-        frCreateRectangle({ 1.25f, 0.0f, .85f, 0.6f },frNumberPixelsToMeters(m->Bounds.width),frNumberPixelsToMeters(m->Bounds.height))
+        frCreateRectangle({ 1.25f, 0.0f, 0.7f, 0.7f },frNumberPixelsToMeters(m->Bounds.width),frNumberPixelsToMeters(m->Bounds.height))
         );
 
         frAddToWorld(Juego.f_world,wal);
@@ -82,7 +94,7 @@ void UpdatePhysics()
 void DrawPlayer() {
 
     Vector2 pos = frVec2MetersToPixels(frGetBodyPosition(Player.Body));
-    DrawSprite(300, pos.x-14/2, pos.y-13/2, frGetBodyRotation(Player.Body), 1.f, WHITE, SpriteFlipNone);
+    DrawSprite(300, pos.x-7, pos.y-8, frGetBodyRotation(Player.Body), 1.f, WHITE, SpriteFlipNone);
 
 }
 
@@ -94,15 +106,18 @@ public:
         DrawMap();
         BeginMode2D(GetMapCamera());
         
-        DrawPlayer();
         
-        /*for (int i = 0; i < frGetWorldBodyCount(Juego.f_world); i++) {
+        for (int i = 0; i < frGetWorldBodyCount(Juego.f_world); i++) {
             frBody* body = frGetWorldBody(Juego.f_world, i);
 
             frDrawBodyAABB(body,GREEN);
-        }*/
+        }
+        DrawPlayer();
         //frDrawBody(Player.Body,GREEN);
        
+        Vector2 vel = frGetBodyVelocity(Player.Body);
+        DrawText(TextFormat("velocityx %f ",vel.x), 0, -30, 20, WHITE);
+        DrawText(TextFormat("velocityy %f ", vel.y),300, -30, 20, WHITE);
         EndMode2D();
         
     }
@@ -119,7 +134,7 @@ void UpdateGame() {
         firstLoad = false;
     }
 
-   UpdatePlayer(&Player);
+   UpdatePlayer(&Player,Juego.f_world);
     
     //UpdateCameraPlayerBoundsPush(&GetMapCamera(),&Player,800,600);
 

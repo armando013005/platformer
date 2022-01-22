@@ -10,26 +10,24 @@ public:
     int texture = 300;
     Color color = RED;
     frBody* Body;
-   
+  
 
+    bool firstinit = true;
     bool canJump = false;
     float Vel_x = 0;
     float Vel_y = 1.f;
+    int maxP;
 
 
 private:
 
 };
 
-typedef struct {
-    Rectangle Rec;
-    int Es; // 0 piso, 1 pared, 2 techo
-    //int objetos = 4;
-}PlatformHitbox;
 
 
 
 
-void UpdatePlayer(Entidad* Player);
+
+void UpdatePlayer(Entidad* Player, frWorld* world);
 
 void UpdateCameraPlayerBoundsPush(Camera2D* camera, Entidad* player, int width, int height);
