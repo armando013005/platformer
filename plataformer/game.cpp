@@ -10,32 +10,8 @@
 #include "include/tile_map.h"
 #include "ferox.h"
 #include <vector>
-#include <unordered_map>
 
 #define PLAYER_MATERIAL   { 15.f, 0.0f, 1.0f, 1.f }
-
-enum class ActorStates {
-    idle,
-    run,
-    jumpUp,
-    jumpSides
-};
-
-struct Entidad
-{
-
-    ActorStates state = ActorStates::idle;
-    bool FacingRight = true;
-
-    AnimSpriteInstance sprite;
-    std::unordered_map<ActorStates, std::vector<SpriteAnimation>> AnimationStates;
-
-    frBody* Body;
-
-
-    bool canJump = false;
-
-}Player;
 
 bool firstLoad = true;
 int currentlvl;
@@ -43,26 +19,9 @@ std::vector<const char*> niveles;
                         //solo un int
 // {x,y,width,heigth},(0 horizontal, 1 vertical,2 playaforma flotante)}
 
+Entidad Player;
     
 juego Juego;
-
-
-void UpdatePlayer(Entidad* Player) {
-
-    frSetBodyRotation(Player->Body, 0);
-    Player->canJump = true;
-
-    if (IsKeyDown(KEY_RIGHT)) frApplyImpulse(Player->Body, { 0.02f,0.0f });
-    if (IsKeyDown(KEY_LEFT)) frApplyImpulse(Player->Body, { -0.02f,0.f });
-    if (IsKeyPressed(KEY_X) && Player->canJump) {
-        Player->canJump = false;
-        frApplyImpulse(Player->Body, { 0.0f,-0.2 });
-
-    }
-
-
-
-}
 
 
 void NextLevel() {
@@ -77,32 +36,6 @@ void PushLevels() {
     niveles.push_back("nullptr");
     niveles.push_back("resources/levels/defaulttest.tmx");
 
-    SpriteSheet anim = GetSpriteSheet();
-    AnimSpriteInstance ai = { {0,0}, Vector2{anim.Frames[0].width / 2, anim.Frames[0].height / 2 }, &anim };
-    Player.sprite = ai;
-
-    Player.AnimationStates[ActorStates::idle].emplace_back(SpriteAnimation{"idle",0,0,1,1});
-
-    SetSpriteAnimation(Player.sprite,Player.AnimationStates[ActorStates::idle][0]);
-    /*typedef struct SpriteAnimation
-    {
-        std::string Name;
-        int StartFrame = -1;
-        int EndFrame = -1;
-        float FPS = 3;
-        bool Loops = true;
-    };*/
-    /*struct AnimSpriteInstance
-    {
-    Vector2 Position = { 0 };
-
-    Vector2 Offset = { 0,0 };
-    const SpriteSheet* Sheet = nullptr;
-    const SpriteAnimation* Animation = nullptr;
-    bool AnimationDone = false;
-    int CurrentFrame = -1;
-    float FrameLifetime = 0;
-    };*/
     NextLevel();
 }
 
@@ -149,8 +82,7 @@ void UpdatePhysics()
 void DrawPlayer() {
 
     Vector2 pos = frVec2MetersToPixels(frGetBodyPosition(Player.Body));
-    Player.sprite.Position = pos;
-    AnimDrawSprite(Player.sprite);
+    DrawSprite(300, pos.x-14/2, pos.y-13/2, frGetBodyRotation(Player.Body), 1.f, WHITE, SpriteFlipNone);
 
 }
 

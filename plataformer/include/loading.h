@@ -10,7 +10,6 @@ void FinalizeLoad();
 
 void UnloadAll();
 
-const SpriteSheet& GetSpriteSheet();
 
 const Texture2D& GetTexture(int id);
 

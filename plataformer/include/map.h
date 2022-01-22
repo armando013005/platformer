@@ -2,7 +2,7 @@
 
 #include "raylib.h"
 #include "include/tile_map.h"
-#include "Player.h"
+
 #include <vector>
 
 // map basics
@@ -14,6 +14,7 @@ Camera2D& GetMapCamera();
 
 // tile map objects
 std::vector<const TileObject*> GetMapObjectsOfType(const char* objType, TileObject::SubTypes requiredType = TileObject::SubTypes::None);
+
 const TileObject* GetFirstMapObjectOfType(const char* objType, TileObject::SubTypes requiredType = TileObject::SubTypes::None);
 
 

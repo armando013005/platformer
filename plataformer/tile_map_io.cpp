@@ -1,6 +1,6 @@
 #include "include/tile_map.h"
 #include "include/sprites.h"
-
+#include <memory>
 #include "PUGIXML/pugixml.hpp"
 
 const unsigned FLIPPED_HORIZONTALLY_FLAG = 0x80000000;

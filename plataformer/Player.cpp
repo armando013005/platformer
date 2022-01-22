@@ -4,7 +4,22 @@
 #include "include/tile_map.h"
 #include <vector>
 
-/*
+void UpdatePlayer(Entidad* Player) {
+    frSetBodyRotation(Player->Body, 0);
+    Player->canJump = true;
+
+    if (IsKeyDown(KEY_RIGHT)) frApplyImpulse(Player->Body, {0.02f,0.0f});
+    if (IsKeyDown(KEY_LEFT)) frApplyImpulse(Player->Body, {-0.02f,0.f});
+    if (IsKeyPressed(KEY_X) && Player->canJump) {
+        Player->canJump = false;
+        frApplyImpulse(Player->Body, { 0.0f,-0.2 });
+        
+    }
+
+    
+   
+}
+
 void UpdateCameraPlayerBoundsPush(Camera2D* camera, Entidad* player, int width, int height)
 {
 
@@ -19,4 +34,4 @@ void UpdateCameraPlayerBoundsPush(Camera2D* camera, Entidad* player, int width, 
     if (hitbox.y < bboxWorldMin.y) camera->target.y = 16;
     if (hitbox.x > bboxWorldMax.x) camera->target.x = bboxWorldMin.x + (Position.x - bboxWorldMax.x);
     if (hitbox.y > bboxWorldMax.y) camera->target.y = bboxWorldMin.y + (Position.y - bboxWorldMax.y);
-}*/
+}
