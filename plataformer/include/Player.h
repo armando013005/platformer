@@ -11,12 +11,18 @@ public:
     Color color = RED;
     frBody* Body;
   
-
-    bool firstinit = true;
     bool canJump = false;
-    float Vel_x = 0;
-    float Vel_y = 1.f;
+  
+    bool WeDashed = false;
+    bool WantToMoveL = false;
+
     int maxP;
+
+    float GroundedRememberTime = 0.065;
+    float GroundedRemember = 0;
+
+    float RememberJumpTime = 0.02;
+    float RememberJump = 0;
 
 
 private:

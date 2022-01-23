@@ -107,17 +107,23 @@ public:
         BeginMode2D(GetMapCamera());
         
         
-        for (int i = 0; i < frGetWorldBodyCount(Juego.f_world); i++) {
+        /*for (int i = 0; i < frGetWorldBodyCount(Juego.f_world); i++) {
             frBody* body = frGetWorldBody(Juego.f_world, i);
 
             frDrawBodyAABB(body,GREEN);
-        }
+        }*/
         DrawPlayer();
         //frDrawBody(Player.Body,GREEN);
+
+        if (Player.WantToMoveL) {
+            DrawText("want to move",150,-60,20,WHITE);
+        }
        
         Vector2 vel = frGetBodyVelocity(Player.Body);
         DrawText(TextFormat("velocityx %f ",vel.x), 0, -30, 20, WHITE);
         DrawText(TextFormat("velocityy %f ", vel.y),300, -30, 20, WHITE);
+
+        DrawFPS(-5,-50);
         EndMode2D();
         
     }

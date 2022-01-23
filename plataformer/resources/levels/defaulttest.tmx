@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="95">
+<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="122">
  <tileset firstgid="1" name="monochrome_tilemap" tilewidth="16" tileheight="16" spacing="1" tilecount="400" columns="20">
   <image source="../../../../../../Downloads/1bitplatformerpack/Tilemap/monochrome_tilemap.png" width="339" height="339"/>
  </tileset>
@@ -8,22 +8,22 @@
  </tileset>
  <layer id="1" name="Capa de patrones 1" width="32" height="16">
   <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,399,
 32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
 32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,
 32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,
+32,0,0,0,0,0,0,71,71,71,0,0,0,0,0,0,0,12,12,0,0,0,12,12,12,0,0,12,12,0,0,32,
+32,12,12,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,
 32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,
+32,0,0,0,71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,32,
+32,0,12,12,12,12,12,0,0,0,0,12,12,12,12,0,0,0,12,12,12,12,12,0,0,0,0,0,0,0,0,32,
+32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,12,12,32,
 32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,32,32,32,32,0,0,0,0,0,0,0,0,0,0,0,0,0,32,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,
+32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,12,12,12,12,12,12,12,12,0,0,12,12,12,12,32,
+32,0,0,0,0,0,12,12,12,12,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,
+32,0,0,0,0,12,0,0,0,0,0,0,0,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,
 32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,32,0,0
+359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359,359
 </data>
  </layer>
  <objectgroup id="2" name="colisiones">
@@ -32,13 +32,28 @@
   <object id="86" type="Colider" x="0" y="224" width="511" height="16.9333"/>
   <object id="89" type="Colider" x="256" y="16" width="256" height="16"/>
   <object id="90" type="Colider" x="496" y="32" width="16" height="208"/>
-  <object id="92" type="Colider" x="224" y="112" width="64" height="16"/>
+  <object id="102" type="Colider" x="32" y="128" width="80" height="16"/>
+  <object id="103" type="Colider" x="96" y="192" width="80" height="16"/>
+  <object id="104" type="Colider" x="208" y="208" width="16" height="16"/>
+  <object id="105" type="Colider" x="256" y="176" width="144" height="16"/>
+  <object id="107" type="Colider" x="432" y="176" width="64" height="16"/>
+  <object id="108" type="Colider" x="448" y="144" width="48" height="16"/>
+  <object id="109" type="Colider" x="432" y="64" width="32" height="16"/>
+  <object id="110" type="Colider" x="288" y="128" width="80" height="16"/>
+  <object id="111" type="Colider" x="176" y="128" width="64" height="16"/>
+  <object id="112" type="Colider" x="272" y="64" width="32" height="16"/>
+  <object id="113" type="Colider" x="112" y="64" width="48" height="16"/>
+  <object id="114" type="Colider" x="80" y="208" width="16" height="16"/>
+  <object id="115" type="Colider" x="16" y="80" width="48" height="16"/>
+  <object id="118" type="Colider" x="352" y="64" width="48" height="16"/>
+  <object id="119" type="Colider" x="480" y="112" width="16" height="16"/>
+  <object id="120" type="Colider" x="64" y="112" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="3" name="SpawnPoint" offsetx="0.333333" offsety="1">
   <object id="94" type="Spawn" x="31.1667" y="190.5"/>
  </objectgroup>
- <objectgroup id="6" name="Exits"/>
- <objectgroup id="5" name="worldbounds" visible="0" locked="1">
+ <objectgroup id="6" name="Exits" visible="0"/>
+ <objectgroup id="5" name="worldbounds" visible="0">
   <object id="71" type="World" x="0" y="16" width="512" height="224"/>
  </objectgroup>
  <objectgroup id="7" name="Doors"/>

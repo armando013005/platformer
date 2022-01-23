@@ -5,59 +5,54 @@
 #include "include/timer.h"
 #include <vector>
 
-#define JUMPVEL Vector2{0,-0.03}
-#define MAXVELR 0.03
-#define MAXVELL -0.03
-float airTime;
-float jumptime;
+#define JUMPVEL 0.02
+#define DASHVEl 0.03
+#define MAXVEL 0.019
+#define VEL 0.017
 
 void UpdatePlayer(Entidad* Player, frWorld* world) {
-    frSetBodyRotation(Player->Body, 0);
 
+    frSetBodyRotation(Player->Body, 0);
+    Player->WantToMoveL = false;
     Vector2 vel = frGetBodyVelocity(Player->Body);
 
-    
-    if (IsKeyDown(KEY_RIGHT)) {
-        if (IsKeyPressed(KEY_C)) {
-            frApplyImpulse(Player->Body, { 0.155f,0.0f });
+    /*if (IsKeyPressed(KEY_C) && !Player->WeDashed) {
+        if (vel.x < 0) {
+            frApplyImpulse(Player->Body, { -DASHVEl,0.0f });
+            Player->WeDashed = true;
         }
-        else if(vel.x > MAXVELR) {
-            frSetBodyVelocity(Player->Body, { MAXVELR,vel.y });
+        else if (vel.x > 0) {
+            frApplyImpulse(Player->Body, { DASHVEl,0.0f });
+            Player->WeDashed = true;
         }
-        else {
-            frApplyImpulse(Player->Body, { 0.02f,0.0f });
 
-        }
-    }
-    if (IsKeyDown(KEY_LEFT)) {
-        if (IsKeyPressed(KEY_C)) {
-            frApplyImpulse(Player->Body, { -0.155f,0.0f });
-            
-        }
-        else if (vel.x < MAXVELL) {
-            frSetBodyVelocity(Player->Body, {MAXVELL,vel.y});
-        }
-        else {
-            frApplyImpulse(Player->Body, { -0.02f,0.0f });
-        }
-    }
-
-    if (IsKeyDown(KEY_X)  && jumptime < 0.06f) {
-        jumptime += GetFrameTime();
-        if (Player->canJump) {
-            Player->canJump = false;
-            frApplyImpulse(Player->Body, JUMPVEL);
-        }
-        else {
-            if (airTime < 0.075f) {
-                Player->canJump = false;
-                frApplyImpulse(Player->Body, JUMPVEL);
-            }
-        }
+        Player->WantToMoveL = true;
         
+    }*/
+
+    if (IsKeyDown(KEY_RIGHT)) {
+        if (vel.x > MAXVEL && !Player->WeDashed) {
+            frSetBodyVelocity(Player->Body, { MAXVEL,vel.y });
+        }
+        else {
+            frApplyImpulse(Player->Body, { VEL,0.0f });
+
+        }
+        Player->WantToMoveL = true;
+    }
+ 
+    
+    if (IsKeyDown(KEY_LEFT)) {
+        if (vel.x < -MAXVEL && !Player->WeDashed) {
+            frSetBodyVelocity(Player->Body, { -MAXVEL,vel.y });
+        }
+        else {
+            frApplyImpulse(Player->Body, { -VEL,0.0f });
+        }
+        Player->WantToMoveL = true;
     }
 
-    
+   
 
     Vector2 Player_Pos = frGetBodyPosition(Player->Body);
     frShape* Player_Shape = frGetBodyShape(Player->Body);
@@ -67,13 +62,14 @@ void UpdatePlayer(Entidad* Player, frWorld* world) {
           {{Player_Pos.x,Player_Pos.y + frNumberPixelsToMeters(2)},//center
           {0,Player_Pos.y + frNumberPixelsToMeters(1)},
           0.5f},
-          {{Player_Pos.x + (frGetBodyAABB(Player->Body).width / 2)-0.05 ,Player_Pos.y + frNumberPixelsToMeters(2)},
+          {{Player_Pos.x + (frGetBodyAABB(Player->Body).width / 2) ,Player_Pos.y + frNumberPixelsToMeters(2)},
           {0,Player_Pos.y + frNumberPixelsToMeters(1)}, //right
           0.5f},
-          {{Player_Pos.x - (frGetBodyAABB(Player->Body).width / 2)+0.05 ,Player_Pos.y + frNumberPixelsToMeters(2)},
+          {{Player_Pos.x - (frGetBodyAABB(Player->Body).width / 2),Player_Pos.y + frNumberPixelsToMeters(2)},
           {0,Player_Pos.y + frNumberPixelsToMeters(1)},//left
           0.5f}
     };
+
     bool RayOnGroundC = false;
     bool RayOnGroundR = false;
     bool RayOnGroundL = false;
@@ -117,17 +113,31 @@ void UpdatePlayer(Entidad* Player, frWorld* world) {
         }
     }
   
+    Player->GroundedRemember -= GetFrameTime();
+    
     if (RayOnGroundC || RayOnGroundL || RayOnGroundR) {
-        Player->canJump = true; 
-        airTime = 0;
-        jumptime = 0;
-    }
-    else {
-        Player->canJump = false;
-        airTime += GetFrameTime();
+        Player->GroundedRemember = Player->GroundedRememberTime;
+
     }
 
+    Player->RememberJump -= GetFrameTime();
+    if (IsKeyPressed(KEY_C)) {
+        Player->RememberJump = Player->RememberJumpTime;
+    }
     
+    if (IsKeyUp(KEY_C)) {
+        if (vel.y < 0) {
+            frSetBodyVelocity(Player->Body, { vel.x, -JUMPVEL * 0.02 });
+        }
+    }
+    if ((Player->RememberJump > 0) && (Player->GroundedRemember > 0) ) {
+        Player->RememberJump = 0;
+        Player->GroundedRemember = 0;
+        frSetBodyVelocity(Player->Body, {vel.x,-JUMPVEL });
+    }
+   // if (!Player->WantToMoveL) {
+     //  frSetBodyVelocity(Player->Body, {0,frGetBodyVelocity(Player->Body).y});
+    //}
 }
 
 void UpdateCameraPlayerBoundsPush(Camera2D* camera, Entidad* player, int width, int height)
