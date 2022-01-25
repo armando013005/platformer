@@ -55,10 +55,12 @@ public:
 LoadingScreen* LoadScreen = nullptr;
 std::deque<std::string> TtoLoad;
 std::deque<std::string> StoLoad;
+std::deque<std::string> MtoLoad;
 
 std::vector<Font> fuentes;
 std::vector<Texture2D> sprites;
 std::vector<Sound> Sounds;
+std::vector<Music> music;
 
 void InitResourses() {
 
@@ -70,34 +72,50 @@ void InitResourses() {
 
     fuentes.push_back(LoadFont("resources/fuentes/GREEN_NATURE.ttf"));
 
-    TtoLoad.push_back("resources/Tiles/Transparent/tile_0300.png");
-
-    TtoLoad.push_back("resources/Tilemap/monochrome_tilemap_transparent.png");
+    TtoLoad.push_back("resources/Tilemap/tilemap.png");
 
     TtoLoad.push_back("resources/levels/default.png");
 
-    TotalToLoad = TtoLoad.size() + StoLoad.size();
+    MtoLoad.push_back("resources/Sounds/ArcadeKind.mp3");
+
+    StoLoad.push_back("resources/Sounds/0Fell.wav");
+    StoLoad.push_back("resources/Sounds/0Die.wav");
+    StoLoad.push_back("resources/Sounds/0JumpHit_01.wav");
+    StoLoad.push_back("resources/Sounds/qubodupImpactStone.wav");
+    StoLoad.push_back("resources/Sounds/menu.wav");
+
+    TotalToLoad = TtoLoad.size() + StoLoad.size() + MtoLoad.size();
 }
 
 void FinalizeLoad() {
 
-    LoadSprites(1, 20, 20, 1);
+    LoadSprites(0, 36, 42, 1);
 
-    SetCustomSpriteOrigin(300, { 1,3 });
+    SetCustomSpriteOrigin(540, { 8,11 });
+    SetCustomSpriteOrigin(541, { 8,11 });
+    SetCustomSpriteOrigin(542, { 8,11 });
+    SetCustomSpriteOrigin(543, { 8,11 });
+    SetCustomSpriteOrigin(544, { 8,11 });
+    SetCustomSpriteOrigin(545, { 8,11 });
+    SetCustomSpriteOrigin(546, { 8,11 });
+
 }
 
 
 void UnloadAll() {
-    for (int i = 0; i > fuentes.size(); i++) {
+    for (int i = 0; i < fuentes.size(); i++) {
         UnloadFont(fuentes[i]);
     }
 
-    for (int i = 0; i > sprites.size(); i++) {
+    for (int i = 0; i < sprites.size(); i++) {
         UnloadTexture(sprites[i]);
     }
 
-    for (int i = 0; i > Sounds.size(); i++) {
+    for (int i = 0; i < Sounds.size(); i++) {
         UnloadSound(Sounds[i]);
+    }
+    for (int i = 0; i < music.size(); i++) {
+        UnloadMusicStream(music[i]);
     }
 }
 
@@ -106,8 +124,17 @@ const Texture2D& GetTexture(int id) {
 
         return sprites[0];
     }
-
     return sprites[id];
+}
+const Music& GetMusic(int id) {
+    if (id < 0 || id > music.size()) {
+
+        return music[0];
+    }
+
+    music[id].looping = true;
+
+    return music[id];
 }
 const Sound& GetSound(int id) {
     if (id < 0 || id > Sounds.size()) {
@@ -129,7 +156,7 @@ const Font& GetFont(int id) {
 void UpdateLoad() {
 
     //esta funcion tambien esta robadita del rpg example xdd https://github.com/raylib-extras/RPGExample/blob/main/RPG/loading.cpp
-    if (TtoLoad.empty() && StoLoad.empty())
+    if (TtoLoad.empty() && StoLoad.empty() && MtoLoad.empty())
     {
         FinalizeLoad();
         LoadComplete();
@@ -147,6 +174,13 @@ void UpdateLoad() {
         {
             sprites.push_back(LoadTexture(TtoLoad.front().c_str()));
             TtoLoad.pop_front();
+
+            LoadedItems++;
+        }
+        else if (!MtoLoad.empty())
+        {
+            music.push_back(LoadMusicStream(MtoLoad.front().c_str()));
+            MtoLoad.pop_front();
 
             LoadedItems++;
         }

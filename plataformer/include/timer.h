@@ -7,18 +7,8 @@ typedef struct Timer
     double Lifetime;
 };
 
-void StartTimer(Timer* timer, double lifetime)
-{
-    timer->StartTime = GetTime();
-    timer->Lifetime = lifetime;
-}
+void StartTimer(Timer* timer, double lifetime);
 
-bool TimerDone(Timer* timer)
-{
-    return GetTime() - timer->StartTime >= timer->Lifetime;
-}
+bool TimerDone(Timer* timer);
 
-double GetElapsed(Timer* timer)
-{
-    return GetTime() - timer->StartTime;
-}
+double GetElapsed(Timer* timer);

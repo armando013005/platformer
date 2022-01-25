@@ -54,6 +54,9 @@
     <ClCompile Include="PUGIXML\pugixml.cpp">
       <Filter>PUGIXML</Filter>
     </ClCompile>
+    <ClCompile Include="timer.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\game.h">

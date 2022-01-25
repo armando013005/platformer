@@ -13,7 +13,7 @@
 int windowWith = 800;
 int windowHeight = 600;
 int framecounter = 0;
-
+float musicVolume = 0.3f;
 enum class ApplicationStates
 {
     Startup,
@@ -21,7 +21,8 @@ enum class ApplicationStates
     Menu,
     Running,
     Paused,
-    Quiting
+    Quiting,
+    MoreOptions
 } ApplicationState;
 
 /*class StarupScreen : public Screen
@@ -34,21 +35,67 @@ public:
     }
 }starupScreen;
 */
+class OptionsMenu : public Screen {
+
+public:
+    void Draw() override {
+
+        DrawMap();
+
+        Color blanco = { 245, 245, 245, 100 };
+
+        DrawRectangle(0, 0, 800, 600, blanco);
+
+        float width = 800 / 2;
+        float Height = 600 / 2;
+        Rectangle rectangle = { 800 / 2 - width / 2, 600 / 2 - Height / 2, width, Height };
+
+        DrawRectangleRec(rectangle, BLACK);
+        DrawRectangleLinesEx(rectangle, 3, RAYWHITE);
+
+        Rectangle o = { 800.f / 2.f - 70.f / 2.f, rectangle.y - 40.f / 2.f, 70.f, 40.f };
+
+        Rectangle ou = { 800.f / 2.f - 70.f / 2.f, rectangle.y + 120.f / 2.f, 70.f, 20.f };
+
+        GuiDummyRec(o, "OPTIONS");
+        DrawRectangleLinesEx(o, 3, RAYWHITE);
+      
+         musicVolume = GuiSliderBar(ou, TextFormat("VOLUME : %i",int(musicVolume*100)), "100", musicVolume, 0, 1);
+        SetMasterVolume(musicVolume);
+
+        if (DrawCenteredButton(600 - 600 / 2, 70, 40, "BACK")) {
+            PlaySound(GetSound(3));
+            ResumeGame(); 
+            
+        }
+
+        if (DrawCenteredButton(600 - 600 / 2.6, 70, 40, "QUIT TO MAIN MENU")) {
+            PlaySound(GetSound(3));
+            gotomenu();
+        } 
+
+    }
+
+}options;
+
 class MainMenu : public Screen{
 public:
     void Draw() override {
 
         //ashesfont = LoadFontEx("styles / ashes / v5loxical.ttf", 32, 0, 250);
-        DrawCenteredTextEx(600 / 3, "GAME NAME", 40, RAYWHITE, GetFont(0));
-        //DrawCenteredText(GetScreenHeight() / 3, "GAME NAME", 50, RAYWHITE);
+        //DrawCenteredTextEx(600 / 3, "GAME NAME", 40, RAYWHITE, GetFont(0));
+        DrawCenteredText(GetScreenHeight() / 3, "Close Time", 50, RAYWHITE);
 
-
+        
         if (DrawCenteredButton(600 / 2, 100, 30, "PLAY")) {
+            PlaySound(GetSound(3));
+
             ApplicationState = ApplicationStates::Running;
        
         }
 
         if (DrawCenteredButton(600 - 600 / 2.5, 70, 30, "QUIT")) {
+            PlaySound(GetSound(3));
             QuitApp();
         }
 
@@ -116,6 +163,11 @@ void StartGame() {
     
 }
 
+void MoreOptions() {
+    ApplicationState = ApplicationStates::MoreOptions;
+    SetActiveScreen(&options);
+}
+
 void UpdateMenu() {
     SetActiveScreen(&mainMenu);
 }
@@ -132,6 +184,7 @@ void ResumeGame() {
 int main() {
     SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT);
 	InitWindow(windowWith, windowHeight, "Plataformer");
+
     SetupWindow();
     InitAudioDevice();
 
@@ -145,8 +198,8 @@ int main() {
     
     ApplicationState = ApplicationStates::Loading;
 
-    SetTargetFPS(144);
-   
+    SetTargetFPS(60);
+    SetMasterVolume(musicVolume);
     SetExitKey(NULL);
 
     while (!WindowShouldClose() && ApplicationState != ApplicationStates::Quiting)    // Detect window close button or ESC key
@@ -172,8 +225,8 @@ int main() {
         case ApplicationStates::Paused:
             UpdatePause();
             break;
-        case ApplicationStates::Startup:
-            //UpdateStartup();
+        case ApplicationStates::MoreOptions:
+            MoreOptions();
             break;
         }
         //----------------------------------------------------------------------------------

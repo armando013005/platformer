@@ -124,7 +124,12 @@ bool ReadObjectsLayer(pugi::xml_node& root, TileMap& map)
 		if (n == "object")
 		{
 			int id = child.attribute("id").as_int();
-
+			/// <summary>
+			/// /////////
+			/// </summary>
+			/// <param name="root"></param>
+			/// <param name="map"></param>
+			/// <returns></returns>
 			std::shared_ptr<TileObject> object = nullptr;
 
 			if (!child.child("polygon").empty() || !child.child("polyline").empty())

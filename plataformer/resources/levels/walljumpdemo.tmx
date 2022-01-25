@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="151">
+ <tileset firstgid="1" name="tilemap" tilewidth="16" tileheight="16" spacing="1" tilecount="1548" columns="36">
+  <image source="../Tilemap/tilemap.png" width="621" height="746"/>
+  <tile id="18">
+   <animation>
+    <frame tileid="54" duration="130"/>
+    <frame tileid="54" duration="130"/>
+    <frame tileid="18" duration="130"/>
+    <frame tileid="18" duration="130"/>
+    <frame tileid="18" duration="130"/>
+    <frame tileid="54" duration="130"/>
+   </animation>
+  </tile>
+  <tile id="47">
+   <objectgroup draworder="index" id="2">
+    <object id="1" type="Colider" x="0" y="0" width="16" height="16"/>
+   </objectgroup>
+  </tile>
+  <tile id="294">
+   <objectgroup draworder="index" id="2">
+    <object id="1" type="Pico" x="16" y="0">
+     <polygon points="0,0 -6.00532,2.59436 -5.96279,13.4397 0,16"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="327" type="Pico">
+   <objectgroup draworder="index" id="3">
+    <object id="2" x="0" y="16">
+     <polygon points="0,0 2.76449,-5.7076 13.0569,-5.53748 16,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="364" type="Pico">
+   <objectgroup draworder="index" id="2">
+    <object id="1" name="Picos" type="Pico" x="0" y="0">
+     <polygon points="0,0 0,16 5.625,13.3125 5.625,2.4375"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="701">
+   <objectgroup draworder="index" id="2">
+    <object id="1" type="Exit" x="0" y="0" width="16" height="16"/>
+   </objectgroup>
+  </tile>
+  <tile id="702">
+   <objectgroup draworder="index" id="2">
+    <object id="1" type="Exit" x="0" y="0" width="16" height="16"/>
+   </objectgroup>
+  </tile>
+  <tile id="703">
+   <objectgroup draworder="index" id="2">
+    <object id="1" type="Exit" x="0" y="0" width="16" height="16"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <layer id="1" name="Capa de patrones 1" width="32" height="16">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,0,0,
+0,0,48,0,0,0,0,0,0,12,12,0,3221225800,3221225800,3221225800,3221225800,0,12,12,0,3221225800,3221225800,3221225800,3221225800,0,12,630,631,632,48,0,0,
+0,0,48,0,0,0,328,0,0,48,48,0,0,0,0,0,0,48,48,0,0,0,0,0,0,47,702,703,704,48,0,0,
+0,0,48,0,0,0,48,0,0,48,48,0,0,0,0,0,0,48,48,0,0,0,0,0,0,47,0,0,47,48,0,0,
+0,0,48,0,0,0,48,0,0,48,48,0,0,48,48,0,295,48,48,0,0,48,48,0,295,47,0,0,0,48,0,0,
+0,0,48,0,0,0,48,0,0,48,48,0,0,48,48,0,295,48,48,0,0,48,48,0,295,47,47,0,0,48,0,0,
+0,0,48,0,0,0,48,0,0,48,48,0,0,48,48,0,295,48,48,0,0,48,48,0,295,47,1073742152,0,0,48,0,0,
+0,0,48,0,0,0,48,0,0,48,48,0,0,48,48,0,295,48,48,0,0,48,48,0,295,47,0,0,0,48,0,0,
+0,0,48,0,0,0,48,0,0,48,48,0,0,48,48,0,295,48,48,0,0,48,48,0,295,47,0,0,47,48,0,0,
+0,0,48,0,0,0,48,0,0,1073742152,1073742152,0,0,48,48,0,0,0,0,0,0,48,48,0,0,0,0,0,0,48,0,0,
+0,0,48,0,0,0,48,0,0,0,0,0,0,48,48,3758096676,0,0,0,0,292,48,48,19,0,0,292,0,0,48,0,0,
+0,0,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="2" name="colisiones">
+  <object id="123" type="Colider" x="32" y="32" width="16" height="192"/>
+  <object id="124" type="Colider" x="48" y="208" width="432" height="16"/>
+  <object id="125" type="Colider" x="464" y="48" width="16" height="160"/>
+  <object id="126" type="Colider" x="48" y="32" width="432" height="16"/>
+  <object id="127" type="Colider" x="400" y="65.75" width="16" height="110.25"/>
+  <object id="129" type="Colider" x="336.5" y="96" width="31.5" height="112"/>
+  <object id="130" type="Colider" x="273" y="64" width="31" height="112"/>
+  <object id="131" type="Colider" x="208" y="96" width="30.5" height="112"/>
+  <object id="133" type="Colider" x="96" y="80" width="16" height="128"/>
+  <object id="134" type="Colider" x="448" y="160" width="16" height="16"/>
+  <object id="135" type="Colider" x="416" y="112" width="16" height="16"/>
+  <object id="136" type="Colider" x="448" y="80" width="16" height="16"/>
+  <object id="148" type="Colider" x="144" y="64" width="32" height="112"/>
+ </objectgroup>
+ <objectgroup id="3" name="SpawnPoint" offsetx="0.333333" offsety="1">
+  <object id="122" type="Spawn" x="78.1667" y="187.5"/>
+ </objectgroup>
+ <objectgroup id="6" name="Exits">
+  <object id="138" type="Exit" x="416" y="48" width="48" height="32"/>
+ </objectgroup>
+ <objectgroup id="5" name="worldbounds" visible="0">
+  <object id="71" type="World" x="0" y="16" width="512" height="224"/>
+ </objectgroup>
+ <objectgroup id="7" name="picos">
+  <object id="141" type="Pico" x="96" y="78.9091">
+   <polygon points="0.391304,1.13043 2.16206,-3.79051 13.5059,-3.81818 15.7668,1.11858"/>
+  </object>
+  <object id="142" type="Pico" x="192" y="48">
+   <polygon points="0,0 64,0 61.1818,5.54545 2.81818,5.45455"/>
+  </object>
+  <object id="143" type="Pico" x="272" y="96">
+   <polygon points="0,0 -0.03125,79.3125 -6.45455,76.4545 -6.18182,2.54545"/>
+  </object>
+  <object id="144" type="Pico" x="144" y="176">
+   <polygon points="0.5625,0.078125 31.3906,-0.078125 29.2727,4.54545 2.54545,4.27273"/>
+  </object>
+  <object id="145" type="Pico" x="400" y="176">
+   <polygon points="0.0444444,-0.377778 -5.5,-3 -5.375,-77.125 0,-80"/>
+  </object>
+  <object id="146" type="Pico" x="320" y="48">
+   <polygon points="0,0 64,0 60.125,6.625 3.375,6.5"/>
+  </object>
+  <object id="147" type="Pico" x="416" y="128">
+   <polygon points="0,0 16,0 12.625,6 3.125,5.625"/>
+  </object>
+ </objectgroup>
+</map>

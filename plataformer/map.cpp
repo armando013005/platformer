@@ -40,8 +40,8 @@ void LoadMap(const char* file)
 	ClearSprites();
 	ReadTileMap(file, CurrentMap);
 
-	MapCamera.offset.x = GetScreenWidth()/2;
-	MapCamera.offset.y = GetScreenHeight()/2;
+	MapCamera.offset.x = 800/2;
+	MapCamera.offset.y= 600/2;
 
 	MapCamera.rotation = 0;
 	MapCamera.zoom = 1.5f;
