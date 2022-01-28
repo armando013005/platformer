@@ -13,7 +13,8 @@
 int windowWith = 800;
 int windowHeight = 600;
 int framecounter = 0;
-float musicVolume = 0.3f;
+float musicVolume = 0.05f;
+float mVolume = 0.5f;
 enum class ApplicationStates
 {
     Startup,
@@ -56,12 +57,16 @@ public:
         Rectangle o = { 800.f / 2.f - 70.f / 2.f, rectangle.y - 40.f / 2.f, 70.f, 40.f };
 
         Rectangle ou = { 800.f / 2.f - 70.f / 2.f, rectangle.y + 120.f / 2.f, 70.f, 20.f };
+        Rectangle oou = { 800.f / 2.f - 70.f / 2.f, rectangle.y + 150.f / 2.f, 70.f, 20.f };
 
         GuiDummyRec(o, "OPTIONS");
         DrawRectangleLinesEx(o, 3, RAYWHITE);
       
-         musicVolume = GuiSliderBar(ou, TextFormat("VOLUME : %i",int(musicVolume*100)), "100", musicVolume, 0, 1);
+         musicVolume = GuiSliderBar(ou, TextFormat("MASTER VOLUME : %i",int(musicVolume*100)), "100", musicVolume, 0, 1);
         SetMasterVolume(musicVolume);
+
+        mVolume = GuiSliderBar(oou, TextFormat(" MUSIC VOLUME : %i", int(mVolume * 100)), "100", mVolume, 0, 1);
+        SetMusicVolume(GetMusic(0), mVolume);
 
         if (DrawCenteredButton(600 - 600 / 2, 70, 40, "BACK")) {
             PlaySound(GetSound(3));
@@ -84,13 +89,18 @@ public:
 
         //ashesfont = LoadFontEx("styles / ashes / v5loxical.ttf", 32, 0, 250);
         //DrawCenteredTextEx(600 / 3, "GAME NAME", 40, RAYWHITE, GetFont(0));
-        DrawCenteredText(GetScreenHeight() / 3, "Close Time", 50, RAYWHITE);
+
+        DrawTextureEx(GetTexture(2), { 60, 160 },0,0.2,WHITE);
+        DrawTextureEx(GetTexture(2), { 800 - 160, 160 }, 0, 0.2, WHITE);
+        DrawCenteredText(600 / 3, "TIEMPO MUERTO", 50, RAYWHITE);
+        DrawCenteredText(150, "(DEAD TIME)", 10, RAYWHITE);
 
         
         if (DrawCenteredButton(600 / 2, 100, 30, "PLAY")) {
             PlaySound(GetSound(3));
 
             ApplicationState = ApplicationStates::Running;
+           
        
         }
 
@@ -183,7 +193,7 @@ void ResumeGame() {
 
 int main() {
     SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT);
-	InitWindow(windowWith, windowHeight, "Plataformer");
+	InitWindow(windowWith, windowHeight, "TIEMPO MUERTO");
 
     SetupWindow();
     InitAudioDevice();
@@ -200,6 +210,7 @@ int main() {
 
     SetTargetFPS(60);
     SetMasterVolume(musicVolume);
+    
     SetExitKey(NULL);
 
     while (!WindowShouldClose() && ApplicationState != ApplicationStates::Quiting)    // Detect window close button or ESC key
@@ -215,6 +226,7 @@ int main() {
             break;
 
         case ApplicationStates::Menu:
+            SetMusicVolume(GetMusic(0), mVolume);
             UpdateMenu();
             break;
 

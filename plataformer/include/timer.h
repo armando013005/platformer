@@ -3,12 +3,12 @@
 
 typedef struct Timer
 {
-    double StartTime;
-    double Lifetime;
+    float StartTime;
+    float Lifetime;
 };
 
-void StartTimer(Timer* timer, double lifetime);
+void StartTimer(Timer* timer, float lifetime);
 
 bool TimerDone(Timer* timer);
 
-double GetElapsed(Timer* timer);
+float GetElapsed(Timer* timer);

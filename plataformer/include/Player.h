@@ -18,17 +18,42 @@ public:
     float CanMoveRememberTime = 0.1f;
     float CanMove = 0;
     
+    bool One_sec = false;
+    bool Half_sec = false;
+    bool Quarter_sec = false;
+
     bool IsDead = false;
     bool levelPassed = false;
 
     float WallSlideSpeed = 0.00201f;
     float WallJumpForce = .08f;
-    float WallJumpDirection = -1;
+    float WallJumpDirection = 1;
     Vector2 WallJumpAngle = {2.5,-2.3f};
+
+    typedef enum Pad {
+        PadU,
+        PadD,
+
+        None
+    };
+   
+    Pad pad = Pad::None;
+
+    int deads = 0;
+    float best_level_time = 6;
+    float total_time = 0;
+    Timer TotalTime;
+    
+    bool WIN = false;
 
     bool RayOnGroundC = false;
     bool RayOnGroundR = false;
     bool RayOnGroundL = false;
+
+    float PadTime = 0;
+    float PadRememberTime = 1.0f;
+
+    bool lvltrans = false;
 
     bool RayTouchingR = false;
     bool RayTouchingL = false;
@@ -52,7 +77,7 @@ public:
     float GroundedRememberTime = 0.09f;
     float GroundedRemember = 0;
 
-    float RememberJumpTime = 0.05f;
+    float RememberJumpTime = 0.09f;
     float RememberJump = 0;
 
     Vector2 Player_Pos = frGetBodyPosition(Body);

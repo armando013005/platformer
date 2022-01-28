@@ -67,7 +67,7 @@ void InitResourses() {
     LoadScreen = new LoadingScreen();
     SetActiveScreen(LoadScreen);
 
-    GuiLoadStyle("resources/styles/ashes/ashesR.rgs");
+    GuiLoadStyle("resources/styles/ashes/ashesR2.rgs");
     int fontc = 78;
 
     fuentes.push_back(LoadFont("resources/fuentes/GREEN_NATURE.ttf"));
@@ -75,6 +75,8 @@ void InitResourses() {
     TtoLoad.push_back("resources/Tilemap/tilemap.png");
 
     TtoLoad.push_back("resources/levels/default.png");
+
+    TtoLoad.push_back("resources/Tilemap/watch.png");
 
     MtoLoad.push_back("resources/Sounds/ArcadeKind.mp3");
 

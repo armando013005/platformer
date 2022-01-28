@@ -11,6 +11,8 @@ void PushLevels();
 
 void UpdateGame();
 
+void restart();
+
 class juego
 {
 public:

@@ -6,10 +6,12 @@
 #include "include/loading.h"
 #include <vector>
 #include <queue>
+#include "ferox.h"
+
 #define JUMPVEL 0.02
 #define DASHVEl 0.03
-#define MAXVEL 0.019
-#define VEL 0.017
+#define MAXVEL 0.016
+#define VEL 0.012
 
 std::queue<KeyboardKey> inputbuffer;
 
@@ -33,91 +35,210 @@ void CoumputeRaysColitions(Entidad* Player, frWorld* world) {
 
 
     for (int i = 0; i < countC; i++) {
-        if (frGetBodyFlags(hitsC[i].body) == FR_FLAG_WALL && frVec2Distance(hitsC[0].point, hitsC[i].point) < frNumberPixelsToMeters(7)) {
-            Player->RayOnGroundC = true;
-        }
-        else
+        switch (frGetBodyFlags(hitsC[i].body))
         {
-            Player->RayOnGroundC = false;
-        }
-        if (frGetBodyFlags(hitsC[i].body) == FR_FLAG_PICO) {
-            float dis = frVec2Distance(hitsC[0].point, hitsC[i].point);
+        case FR_FLAG_WALL:
+            if (frVec2Distance(hitsC[0].point, hitsC[i].point) < frNumberPixelsToMeters(7)) {
+                Player->RayOnGroundC = true;
+            }
+            else
+            {
+                Player->RayOnGroundC = false;
+            }
+            break;
+        case FR_FLAG_PICO:
+            {float dis = frVec2Distance(hitsC[0].point, hitsC[i].point);
             if (dis <= frNumberPixelsToMeters(2)) {
                 Player->IsDead = true;
             }
+            else if (dis <= frNumberPixelsToMeters(4)) {
+                Player->One_sec = true;
+            }
+            else if (dis <= frNumberPixelsToMeters(6)) {
+                Player->Half_sec = true;
+            }
+            else if (dis <= frNumberPixelsToMeters(12)) {
+                Player->Quarter_sec = true;
+            }}
+            break;
+
+        case FR_FLAG_JUMPADU:
+        {float dis = frVec2Distance(hitsC[0].point, hitsC[i].point);
+        if (dis <= frNumberPixelsToMeters(2)) {
+            Player->pad = Player->Pad::PadU;
+        }}
+        break;
+        case FR_FLAG_JUMPADD:
+        {float dis = frVec2Distance(hitsC[0].point, hitsC[i].point);
+        if (dis <= frNumberPixelsToMeters(2)) {
+            Player->pad = Player->Pad::PadD;
+        }}
+        break;
+   
         }
-        
+
     }
+
     for (int i = 0; i < countR; i++) {
-        if (frGetBodyFlags(hitsR[i].body) == FR_FLAG_WALL && frVec2Distance(hitsR[0].point, hitsR[i].point) < frNumberPixelsToMeters(7)) {
-            Player->RayOnGroundR = true;
-        }
-        else
+
+        switch (frGetBodyFlags(hitsR[i].body))
         {
-            Player->RayOnGroundR = false;
-        }
-        if (frGetBodyFlags(hitsR[i].body) == FR_FLAG_PICO) {
-            float dis = frVec2Distance(hitsR[0].point, hitsR[i].point);
-            if (dis <= frNumberPixelsToMeters(2)) {
-                Player->IsDead = true;
+        case FR_FLAG_WALL:
+            if (frVec2Distance(hitsR[0].point, hitsR[i].point) < frNumberPixelsToMeters(7)) {
+                Player->RayOnGroundR = true;
             }
+            else
+            {
+                Player->RayOnGroundR = false;
+            }
+            break;
+        case FR_FLAG_PICO:
+
+            {float dis = frVec2Distance(hitsR[0].point, hitsR[i].point);
+                if (dis <= frNumberPixelsToMeters(2)) {
+                    Player->IsDead = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(4)) {
+                    Player->One_sec = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(8)) {
+                    Player->Half_sec = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(12)) {
+                    Player->Quarter_sec = true;
+                }
+            }
+
+            break;
+        case FR_FLAG_JUMPADU:
+            {float dis = frVec2Distance(hitsR[0].point, hitsR[i].point);
+            if (dis <= frNumberPixelsToMeters(2)) {
+                Player->pad = Player->Pad::PadU;
+            }}
+            break;
+        case FR_FLAG_JUMPADD:
+            {float dis = frVec2Distance(hitsR[0].point, hitsR[i].point);
+            if (dis <= frNumberPixelsToMeters(2)) {
+                Player->pad = Player->Pad::PadD;
+            }}
+            break;
+
+
         }
-        
+
     }
+
     for (int i = 0; i < countL; i++) {
-        if (frGetBodyFlags(hitsL[i].body) == FR_FLAG_WALL && frVec2Distance(hitsL[0].point, hitsL[i].point) < frNumberPixelsToMeters(7)) {
-            Player->RayOnGroundL = true;
-        }
-        else
+
+        switch (frGetBodyFlags(hitsL[i].body))
         {
-            Player->RayOnGroundL = false;
-        }
-        if (frGetBodyFlags(hitsL[i].body) == FR_FLAG_PICO) {
-            float dis = frVec2Distance(hitsL[0].point, hitsL[i].point);
-            if (dis <= frNumberPixelsToMeters(2)) {
-                Player->IsDead = true;
+        case FR_FLAG_WALL:
+            if (frVec2Distance(hitsL[0].point, hitsL[i].point) < frNumberPixelsToMeters(7)) {
+                Player->RayOnGroundL = true;
             }
+            else
+            {
+                Player->RayOnGroundL = false;
+            }
+            break;
+        case FR_FLAG_PICO:
+            {float dis = frVec2Distance(hitsL[0].point, hitsL[i].point);
+                if (dis <= frNumberPixelsToMeters(2)) {
+                    Player->IsDead = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(3)) {
+                    Player->One_sec = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(7)) {
+                    Player->Half_sec = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(12)) {
+                    Player->Quarter_sec = true;
+                }
+            }
+            break;
+            
+        case FR_FLAG_JUMPADU:
+            {float dis = frVec2Distance(hitsL[0].point, hitsL[i].point);
+            if (dis <= frNumberPixelsToMeters(2)) {
+                Player->pad = Player->Pad::PadU;
+            }}
+            break;
+        case FR_FLAG_JUMPADD:
+            {float dis = frVec2Distance(hitsL[0].point, hitsL[i].point);
+            if (dis <= frNumberPixelsToMeters(2)) {
+                Player->pad = Player->Pad::PadD;
+            }}
+            break;
+   
+            
         }
-
     }
-
 
     for (int i = 0; i < countTR; i++) {
-        if (frGetBodyFlags(hitsTR[i].body) == FR_FLAG_WALL && frVec2Distance(hitsTR[0].point, hitsTR[i].point) < frNumberPixelsToMeters(2)) {
-            Player->RayTouchingL = true;
-        }
-        else {
-            Player->RayTouchingL = false;
-        }
 
-        if (frGetBodyFlags(hitsTR[i].body) == FR_FLAG_PICO) {
-            float dis = frVec2Distance(hitsTR[0].point, hitsTR[i].point);
-            if (dis <= frNumberPixelsToMeters(2)) {
-                Player->IsDead = true;
+        switch (frGetBodyFlags(hitsTR[i].body))
+        {
+        case FR_FLAG_WALL:
+            if (frVec2Distance(hitsTR[0].point, hitsTR[i].point) < frNumberPixelsToMeters(2)) {
+                Player->RayTouchingL = true;
             }
+            else {
+                Player->RayTouchingL = false;
+            }
+            break;
+        case FR_FLAG_PICO:
+            {float dis = frVec2Distance(hitsTR[0].point, hitsTR[i].point);
+                if (dis <= frNumberPixelsToMeters(2)) {
+                    Player->IsDead = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(5)) {
+                    Player->One_sec = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(7)) {
+                    Player->Half_sec = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(11)) {
+                    Player->Quarter_sec = true;
+                }
+            }
+            break;
+            
+            
         }
-        
     }
 
     for (int i = 0; i < countTL; i++) {
-        if (frGetBodyFlags(hitsTL[i].body) == FR_FLAG_WALL && frVec2Distance(hitsTL[0].point, hitsTL[i].point) < frNumberPixelsToMeters(2)) {
-            Player->RayTouchingR = true;
-        }
-        else {
-            Player->RayTouchingR = false;
-        }
 
-        if (frGetBodyFlags(hitsTL[i].body) == FR_FLAG_PICO) {
-            float dis = frVec2Distance(hitsTL[0].point, hitsTL[i].point);
-            if (dis <= frNumberPixelsToMeters(2)) {
-                Player->IsDead = true;
+        switch (frGetBodyFlags(hitsTL[i].body))
+        {
+        case FR_FLAG_WALL:
+            if (frVec2Distance(hitsTL[0].point, hitsTL[i].point) < frNumberPixelsToMeters(2)) {
+                Player->RayTouchingR = true;
             }
+            else {
+                Player->RayTouchingR = false;
+            }
+            break;
+        case FR_FLAG_PICO:
+            { float dis = frVec2Distance(hitsTL[0].point, hitsTL[i].point);
+                if (dis <= frNumberPixelsToMeters(2)) {
+                    Player->IsDead = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(5)) {
+                    Player->One_sec = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(7)) {
+                    Player->Half_sec = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(11)) {
+                    Player->Quarter_sec = true;
+                }
+            }
+            break;
+   
         }
     }
-
-
-    
-
 }
 
 void computeSideRays(Entidad* Player, frWorld* world) {
@@ -129,59 +250,110 @@ void computeSideRays(Entidad* Player, frWorld* world) {
 
 
     for (int i = 1; i < countSR; i++) {
-        if (frGetBodyFlags(hitsSR[i].body) == FR_FLAG_WALL && frVec2Distance(hitsSR[0].point, hitsSR[i].point) <= frNumberPixelsToMeters(2)) {
-            Player->RayTouchingSR = true;
-        }
-        else {
-            Player->RayTouchingSR = false;
-        }
-
-        if (frGetBodyFlags(hitsSR[i].body) == FR_FLAG_PICO) {
-            float dis = frVec2Distance(hitsSR[0].point, hitsSR[i].point);
-            if (dis <= frNumberPixelsToMeters(2)) {
-                Player->IsDead = true;
+       
+        switch (frGetBodyFlags(hitsSR[i].body))
+        {
+        case FR_FLAG_WALL:
+            if (frVec2Distance(hitsSR[0].point, hitsSR[i].point) <= frNumberPixelsToMeters(2)) {
+                Player->RayTouchingSR = true;
             }
+            else {
+                Player->RayTouchingSR = false;
+            }
+            break;
+
+        case FR_FLAG_PICO:
+            {float dis = frVec2Distance(hitsSR[0].point, hitsSR[i].point);
+                if (dis <= frNumberPixelsToMeters(2)) {
+                    Player->IsDead = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(3)) {
+                    Player->One_sec = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(6)) {
+                    Player->Half_sec = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(10)) {
+                    Player->Quarter_sec = true;
+                }
+            }
+            break;
+            
+           
+            
         }
         
     }
 
     for (int i = 1; i < countSL; i++) {
-
-        if (frGetBodyFlags(hitsSL[i].body) == FR_FLAG_WALL && frVec2Distance(hitsSL[0].point, hitsSL[i].point) <= frNumberPixelsToMeters(2)) {
-            Player->RayTouchingSL = true;
-        }
-        else {
-            Player->RayTouchingSL = false;
-        }
-
-        if (frGetBodyFlags(hitsSL[i].body) == FR_FLAG_PICO ) {
-            float dis = frVec2Distance(hitsSL[0].point, hitsSL[i].point);
-            if (dis <= frNumberPixelsToMeters(2)) {
-                Player->IsDead = true;
-            }
-        }
         
+        switch (frGetBodyFlags(hitsSL[i].body))
+        {
+        case FR_FLAG_WALL:
+            if (frVec2Distance(hitsSL[0].point, hitsSL[i].point) <= frNumberPixelsToMeters(2)) {
+                Player->RayTouchingSL = true;
+            }
+            else {
+                Player->RayTouchingSL = false;
+            }
+
+            break;
+        case FR_FLAG_PICO:
+            {float dis = frVec2Distance(hitsSL[0].point, hitsSL[i].point);
+                if (dis <= frNumberPixelsToMeters(2)) {
+                    Player->IsDead = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(3)) {
+                    Player->One_sec = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(6)) {
+                    Player->Half_sec = true;
+                }
+                else if (dis <= frNumberPixelsToMeters(10)) {
+                    Player->Quarter_sec = true;
+                }
+            }
+            break;
+        
+      
+        }
 
     }
 }
-void UpdatePlayer(Entidad* Player, frWorld* world) {
 
+void UpdatePlayer(Entidad* Player, frWorld* world) {
 
     frVec2Normalize(Player->WallJumpAngle);
 
     frSetBodyRotation(Player->Body, 0);
-
+    Player->pad = Player->Pad::None;
+    Player->One_sec = false;
+    Player->Half_sec = false;
+    Player->Quarter_sec = false;
     Player->levelPassed = false;
     Player->RayTouchingSR = false;
     Player->RayTouchingSL = false;
     Player->WantToMoveL = false;
     Player->WantToMoveR = false;
+    Player->RayOnGroundC = false;
+    Player->RayOnGroundL = false;
+    Player->RayOnGroundR = false;
     Vector2 vel = frGetBodyVelocity(Player->Body);
     Player->CanMove -= GetFrameTime();
 
-    if (!(Player->CanMove > 0)) {
+
+    if (!(Player->CanMove > 0) ) {
         if (IsKeyDown(KEY_RIGHT)) {
             if (!(Player->WallRemember > 0)) {
+                if (vel.x > MAXVEL) {
+                    frSetBodyVelocity(Player->Body, { MAXVEL,vel.y });
+                }
+                else {
+                    frApplyImpulse(Player->Body, { VEL,0.f });
+
+                }
+            }
+            else {
                 if (vel.x > MAXVEL) {
                     frSetBodyVelocity(Player->Body, { MAXVEL,vel.y });
                 }
@@ -190,10 +362,7 @@ void UpdatePlayer(Entidad* Player, frWorld* world) {
 
                 }
             }
-            else {
-                frApplyImpulse(Player->Body, { VEL,0.0f });
-
-            }
+            
             Player->WantToMoveR = true;
         }
 
@@ -208,12 +377,17 @@ void UpdatePlayer(Entidad* Player, frWorld* world) {
 
             }
             else {
-                frApplyImpulse(Player->Body, { -VEL,0.0f });
+                if (vel.x < -MAXVEL) {
+                    frSetBodyVelocity(Player->Body, { -MAXVEL,vel.y });
+                }
+                else {
+                    frApplyImpulse(Player->Body, { -VEL*0.5,0.0f });
+                }
             }
+            
             Player->WantToMoveL = true;
         }
     }
-
 
     Player->Player_Pos = frGetBodyPosition(Player->Body);
     frShape* Player_Shape = frGetBodyShape(Player->Body);
@@ -232,6 +406,7 @@ void UpdatePlayer(Entidad* Player, frWorld* world) {
     Player->Rays[6] = { {Player->Player_Pos.x - (frGetBodyAABB(Player->Body).width / 2) + frNumberPixelsToMeters(0.5),Player->Player_Pos.y },{-Player->Player_Pos.x,0 },.90f };
 
     CoumputeRaysColitions(Player, world);
+    computeSideRays(Player, world);
 
     float delta = GetFrameTime();
     Player->GroundedRemember -= delta;
@@ -243,16 +418,15 @@ void UpdatePlayer(Entidad* Player, frWorld* world) {
         Player->GroundedRemember = Player->GroundedRememberTime;
 
     }
-
+    /*
     if (Player->RayTouchingL && !Player->RayTouchingR) {
-        frSetBodyPosition(Player->Body, { Player->Player_Pos.x - 0.2f,Player->Player_Pos.y });
+        frSetBodyPosition(Player->Body, { Player->Player_Pos.x - 0.15f,Player->Player_Pos.y });
     }
 
     if (Player->RayTouchingR && !Player->RayTouchingL) {
-        frSetBodyPosition(Player->Body, { Player->Player_Pos.x + 0.2f,Player->Player_Pos.y });
+        frSetBodyPosition(Player->Body, { Player->Player_Pos.x + 0.15f,Player->Player_Pos.y });
     }
-
-    computeSideRays(Player, world);
+    */
 
     vel = frGetBodyVelocity(Player->Body);
 
@@ -269,10 +443,13 @@ void UpdatePlayer(Entidad* Player, frWorld* world) {
         
         Player->RememberJump = Player->RememberJumpTime;
     }
-    if (IsKeyUp(KEY_C) && !(Player->WallRemember > 0)) {
-        if (vel.y < 0) {
+
+
+    if ((IsKeyUp(KEY_C)) && !Player->TouchingWall) {
+        if ((vel.y < 0) ) {
             frSetBodyVelocity(Player->Body, { vel.x, -JUMPVEL * 0.02 });
         }
+        
     }
 
     Player->WallRemember -= delta;
@@ -290,61 +467,55 @@ void UpdatePlayer(Entidad* Player, frWorld* world) {
         frSetBodyVelocity(Player->Body, { vel.x,Player->WallSlideSpeed });
     }
 
-    if (Player->WantToMoveL && Player->WantToMoveR) {
-        if (Player->RayTouchingSL) {
-            Player->WallJumpDirection = 1;
-        }
-        else if (Player->RayTouchingSR) {
-            Player->WallJumpDirection = -1;
-        }
-    }
-    else if (Player->WantToMoveL) {
-        Player->WallJumpDirection = 1;
-    }
-    else if (Player->WantToMoveR) {
-        Player->WallJumpDirection = -1;
-    }
-    else {
-        if (Player->RayTouchingSL) {
-            Player->WallJumpDirection = 1;
-        }
-        else if (Player->RayTouchingSR) {
-            Player->WallJumpDirection = -1;
-        }
-    }
-
-
-
     if ((Player->RememberJump > 0) && (Player->GroundedRemember > 0)) {
 
-        frSetBodyVelocity(Player->Body, { vel.x,-JUMPVEL });
         Player->RememberJump = 0;
         Player->GroundedRemember = 0;
+        frSetBodyVelocity(Player->Body, { vel.x,-JUMPVEL });
 
     }
-
-
-    if ((Player->WallRemember > 0) && (Player->RememberJump > 0) && (Player->GroundedRemember < 0)) {
-        Player->RememberJump = 0;
-        Player->WallRemember = 0;
-        frApplyImpulse(Player->Body, { Player->WallJumpForce * Player->WallJumpDirection * Player->WallJumpAngle.x, Player->WallJumpForce * Player->WallJumpAngle.y });
-    }
-
 
 
     if ((!Player->WantToMoveL && !Player->WantToMoveR) || (Player->WantToMoveL && Player->WantToMoveR)) {
-        if (vel.y != 0) {
+        if (vel.x != 0) {
             if (vel.x > 0) {
 
                 frSetBodyVelocity(Player->Body, { float(vel.x - vel.x * 0.3),frGetBodyVelocity(Player->Body).y });
             }
-            else if (vel.x < 0) {
+             if (vel.x < 0) {
 
                 frSetBodyVelocity(Player->Body, { float(vel.x - vel.x * 0.3),frGetBodyVelocity(Player->Body).y });
             }
 
         }
     }
+
+    if ((Player->WallRemember > 0) && (Player->RememberJump > 0) && !(Player->GroundedRemember > 0)) {
+        Player->RememberJump = 0;
+        Player->WallRemember = 0;
+        if (Player->WantToMoveL && Player->WantToMoveR) {
+            if (Player->RayTouchingSL) {
+                Player->WallJumpDirection = 1;
+                frApplyImpulse(Player->Body, { Player->WallJumpForce * Player->WallJumpDirection * Player->WallJumpAngle.x, Player->WallJumpForce * Player->WallJumpAngle.y });
+            }
+            else if (Player->RayTouchingSR) {
+                Player->WallJumpDirection = -1;
+                frApplyImpulse(Player->Body, { Player->WallJumpForce * Player->WallJumpDirection * Player->WallJumpAngle.x, Player->WallJumpForce * Player->WallJumpAngle.y });
+            }
+        }
+        else if (Player->WantToMoveL) {
+            Player->WallJumpDirection = 1;
+
+            frApplyImpulse(Player->Body, { Player->WallJumpForce * Player->WallJumpDirection * Player->WallJumpAngle.x, Player->WallJumpForce * Player->WallJumpAngle.y });
+        }
+        else if (Player->WantToMoveR) {
+            Player->WallJumpDirection = -1;
+
+            frApplyImpulse(Player->Body, { Player->WallJumpForce * Player->WallJumpDirection * Player->WallJumpAngle.x, Player->WallJumpForce * Player->WallJumpAngle.y });
+        }
+    }
+
+    
 
     if (CheckCollisionRecs(Player->Exit,frRecMetersToPixels(frGetBodyAABB(Player->Body)))) {
         Player->levelPassed = true;

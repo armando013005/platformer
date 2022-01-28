@@ -44,7 +44,7 @@ void LoadMap(const char* file)
 	MapCamera.offset.y= 600/2;
 
 	MapCamera.rotation = 0;
-	MapCamera.zoom = 1.5f;
+	MapCamera.zoom = 1.8f;
 
 	MapCamera.target.x = 0;
 	MapCamera.target.y = 0;
