@@ -40,11 +40,11 @@ void LoadMap(const char* file)
 	ClearSprites();
 	ReadTileMap(file, CurrentMap);
 
-	MapCamera.offset.x =0;
-	MapCamera.offset.y = 0;
+	MapCamera.offset.x = 800/2;
+	MapCamera.offset.y= 600/2;
 
 	MapCamera.rotation = 0;
-	MapCamera.zoom = 2.5;
+	MapCamera.zoom = 1.8f;
 
 	MapCamera.target.x = 0;
 	MapCamera.target.y = 0;
@@ -58,8 +58,8 @@ void LoadMap(const char* file)
 		MapBounds.width = (CurrentMap.TileLayers[index]->Size.x * CurrentMap.TileLayers[index]->TileSize.x);
 		MapBounds.height = (CurrentMap.TileLayers[index]->Size.y * CurrentMap.TileLayers[index]->TileSize.y);
 
-		MapCamera.target.x = 0;// MapBounds.width / 2;
-		MapCamera.target.y = 0;// MapBounds.height / 2;
+		MapCamera.target.x =  MapBounds.width / 2;
+		MapCamera.target.y =  MapBounds.height / 2;
 	}
 }
 
@@ -86,19 +86,19 @@ void DrawMap()
 		{
 			float offset = 0;
 			if (sprite.Bobble)
-				offset =  fabsf(sinf(float(GetTime() * 5)) * 3);
+				offset = fabsf(sinf(float(GetTime() * 5)) * 3);
 
 			if (sprite.Shadow)
-				DrawSprite(sprite.SpriteFrame, sprite.Position.x+2, sprite.Position.y+2 + offset, 0.0f, 1.0f, ColorAlpha(BLACK,0.5f),SpriteFlipNone);
+				DrawSprite(sprite.SpriteFrame, sprite.Position.x + 2, sprite.Position.y + 2 + offset, 0.0f, 1.0f, ColorAlpha(BLACK, 0.5f), SpriteFlipNone);
 
-			DrawSprite(sprite.SpriteFrame, sprite.Position.x, sprite.Position.y + offset, 0.0f, 1.0f, sprite.Tint,SpriteFlipNone);
+			DrawSprite(sprite.SpriteFrame, sprite.Position.x, sprite.Position.y + offset, 0.0f, 1.0f, sprite.Tint, SpriteFlipNone);
 		}
 	}
 
 	for (std::list<EffectInstance>::iterator effect = Effects.begin(); effect != Effects.end();)
 	{
 		effect->Lifetime -= GetFrameTime();
-		
+
 		if (effect->Lifetime < 0)
 		{
 			effect = Effects.erase(effect);
@@ -115,8 +115,8 @@ void DrawMap()
 		switch (effect->Effect)
 		{
 		case EffectType::Fade:
-				alpha = param;
-				break;
+			alpha = param;
+			break;
 
 		case EffectType::RiseFade:
 			alpha = param;
@@ -124,7 +124,7 @@ void DrawMap()
 			break;
 
 		case EffectType::RotateFade:
-			rotation = (1.0f-param) * 360;
+			rotation = (1.0f - param) * 360;
 			alpha = param;
 			break;
 
@@ -134,7 +134,7 @@ void DrawMap()
 			break;
 		}
 
-		DrawSprite(effect->SpriteId, pos.x, pos.y, rotation, scale, ColorAlpha(WHITE, alpha),SpriteFlipNone);
+		DrawSprite(effect->SpriteId, pos.x, pos.y, rotation, scale, ColorAlpha(WHITE, alpha), SpriteFlipNone);
 
 		effect++;
 	}

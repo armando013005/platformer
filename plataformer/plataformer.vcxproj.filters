@@ -16,6 +16,9 @@
     <Filter Include="PUGIXML">
       <UniqueIdentifier>{6c327031-fd24-492b-826e-e7b34904cb9d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ferox">
+      <UniqueIdentifier>{6c003348-0f92-4ba0-9557-88549b3dc5c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -50,6 +53,9 @@
     </ClCompile>
     <ClCompile Include="PUGIXML\pugixml.cpp">
       <Filter>PUGIXML</Filter>
+    </ClCompile>
+    <ClCompile Include="timer.cpp">
+      <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +98,9 @@
     <ClInclude Include="include\resource.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="timer.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="styles\ashes\ashes.rgs">
@@ -107,7 +116,7 @@
     <Image Include="Tiles\Default\tile_0300.png">
       <Filter>tiles</Filter>
     </Image>
-    <Image Include="Tilemap\monochrome_tilemap.png">
+    <Image Include="resources\Tilemap\monochrome_tilemap_transparent.png">
       <Filter>tiles</Filter>
     </Image>
   </ItemGroup>

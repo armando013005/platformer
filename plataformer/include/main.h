@@ -1,5 +1,7 @@
 #pragma once
 
+void MoreOptions();
+
 void UpdateMenu();
 
 void PauseGame();

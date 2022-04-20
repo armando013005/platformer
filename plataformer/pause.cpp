@@ -1,10 +1,11 @@
 #include <raylib.h>
 #include "include/raygui.h"
 #include "include/pause.h"
-
+#include "include/loading.h"
 #include "include/screens.h"
 #include "include/main.h"
 #include "include/map.h"
+
 
 class PauseMenu : public Screen {
 
@@ -29,11 +30,22 @@ public:
 		GuiDummyRec(o, "OPTIONS");
 		DrawRectangleLinesEx(o, 3, RAYWHITE);
 
-		if (DrawCenteredButton(600 / 2.6, 70, 40, "RESUME")) ResumeGame();
+		if (DrawCenteredButton(600 / 2.6, 70, 40, "RESUME")) {
+			PlaySound(GetSound(3));
+			ResumeGame();
+		}
 
-		if (DrawCenteredButton(600 - 600 / 2, 70, 40, "QUIT TO MAIN MENU")) gotomenu();
-	
-		if (DrawCenteredButton(600 - 600 / 2.6, 70, 40, "QUIT TO DESKTOP")) QuitApp();
+		if (DrawCenteredButton(600 - 600 / 2, 70, 40, "OPTIONS")) {
+			PlaySound(GetSound(3));
+			MoreOptions();
+		
+		}
+
+		if (DrawCenteredButton(600 - 600 / 2.6, 70, 40, "QUIT TO MAIN MENU")) {
+			PlaySound(GetSound(3));
+			gotomenu();
+			
+		}
 		
 
 	}
@@ -43,7 +55,7 @@ public:
 void UpdatePause() {
 
 	SetActiveScreen(&pauseMenu);
-	
+	ShowCursor();
 	if (IsKeyPressed(KEY_ESCAPE)) {
 		ResumeGame();
 	}
