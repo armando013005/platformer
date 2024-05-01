@@ -62,7 +62,7 @@ bool ReadTileSetNode(pugi::xml_node root, int idOffset, TileMap& map)
 			std::string source;
 			if (!ReadImageData(width, height, source, child.child("image")))
 				continue;
-			
+
 			// this is where tilesheet data would go
 		}
 		else if (n == "image")
@@ -124,7 +124,12 @@ bool ReadObjectsLayer(pugi::xml_node& root, TileMap& map)
 		if (n == "object")
 		{
 			int id = child.attribute("id").as_int();
-
+			/// <summary>
+			/// /////////
+			/// </summary>
+			/// <param name="root"></param>
+			/// <param name="map"></param>
+			/// <returns></returns>
 			std::shared_ptr<TileObject> object = nullptr;
 
 			if (!child.child("polygon").empty() || !child.child("polyline").empty())
@@ -321,7 +326,7 @@ bool ReadTiledXML(pugi::xml_document& doc, TileMap& map, const std::string& file
 						val &= ~(FLIPPED_HORIZONTALLY_FLAG | FLIPPED_VERTICALLY_FLAG | FLIPPED_DIAGONALLY_FLAG);
 
 						// subtract 1 from the index, since our sprites start at 0 not 1
-						tile.Sprite = static_cast<int16_t>(val-1);
+						tile.Sprite = static_cast<int16_t>(val - 1);
 
 						layer.Tiles.emplace_back(std::move(tile));
 						posX++;

@@ -14,7 +14,7 @@ struct SpriteInfo
 
 std::vector<SpriteInfo> Sprites;
 
-void LoadSprites(int TextureId, int filas, int columnas, int espaciado) {
+void LoadSprites(int TextureId, float columnas, float filas, int espaciado) {
 	
 	if (columnas == 0 || filas == 0) {
 		return;
